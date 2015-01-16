@@ -24,7 +24,6 @@ class main_listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_setup'            => 'load_language_on_setup',
-			'core.page_header'           => 'add_page_header_link',
 			'core.search_get_topic_data' => 'fetch_extended_new_post_data',
 			'core.search_modify_tpl_ary' => 'template_add_extended_new_post_data',
 		);
@@ -60,13 +59,6 @@ class main_listener implements EventSubscriberInterface
 			'lang_set' => 'myspot',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
-	}
-
-	public function add_page_header_link($event)
-	{
-		$this->template->assign_vars(array(
-			'U_DEMO_PAGE' => $this->helper->route('tsn_tsn8_controller', array('name' => 'world')),
-		));
 	}
 
 	public function fetch_extended_new_post_data($event)

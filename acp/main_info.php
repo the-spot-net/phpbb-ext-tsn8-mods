@@ -15,10 +15,10 @@ class main_info
 	{
 		return array(
 			'filename'	=> '\tsn\tsn8\acp\main_module',
-			'title'		=> 'ACP_DEMO_TITLE',
+			'title'		=> 'TSN8_MODS_TITLE',
 			'version'	=> '1.0.0',
 			'modes'		=> array(
-				'settings'	=> array('title' => 'ACP_DEMO', 'auth' => 'ext_tsn/tsn8 && acl_a_board', 'cat' => array('ACP_DEMO_TITLE')),
+				'settings'	=> array('title' => 'TSN8_MODS_SETTINGS', 'auth' => 'ext_tsn/tsn8 && acl_a_board', 'cat' => array('TSN8_MODS_TITLE')),
 			),
 		);
 	}

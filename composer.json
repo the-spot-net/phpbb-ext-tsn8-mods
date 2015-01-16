@@ -1,27 +1,27 @@
 {
 	"name": "tsn/tsn8",
 	"type": "phpbb-extension",
-	"description": "Acme Demo Extension for phpBB 3.1",
-	"homepage": "https://github.com/nickvergessen/phpbb-ext-acme-demo",
-	"version": "0.1.0",
-	"time": "2013-11-05",
+	"description": "Modifications needed to add tsn8 features",
+	"homepage": "https://github.com/neotsn/phpbb-ext-tsn8-mods",
+	"version": "0.1",
+	"time": "2015-01-15",
 	"license": "GPL-2.0",
 	"authors": [{
-			"name": "Joas Schilling",
-			"email": "nickvergessen@gmx.de",
-			"homepage": "https://github.com/nickvergessen/",
-			"role": "Lead Developer"
+			"name": "@neotsn",
+			"email": "neotsn@the-spot.net",
+			"homepage": "https://about.me/neotsn/",
+			"role": "Developer"
 		}],
 	"require": {
-		"php": ">=5.3.3"
+		"php": ">=5.5.*"
 	},
 	"require-dev": {
 		"phpbb/epv": "dev-master"
 	},
 	"extra": {
-		"display-name": "Acme Demo Extension",
+		"display-name": "tsn8 Modifications",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.0-RC2,<3.2.*@dev"
+			"phpbb/phpbb": ">=3.1.2"
 		}
 	}
 }

@@ -39,17 +39,17 @@ class main
 		$this->user = $user;
 	}
 
-	/**
-	* Demo controller for route /demo/{name}
-	*
-	* @param string		$name
-	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
-	*/
-	public function handle($name)
-	{
-		$l_message = !$this->config['acme_demo_goodbye'] ? 'DEMO_HELLO' : 'DEMO_GOODBYE';
-		$this->template->assign_var('DEMO_MESSAGE', $this->user->lang($l_message, $name));
-
-		return $this->helper->render('demo_body.html', $name);
-	}
+//	/**
+//	* Demo controller for route /demo/{name}
+//	*
+//	* @param string		$name
+//	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
+//	*/
+//	public function handle($name)
+//	{
+//		$l_message = !$this->config['acme_demo_goodbye'] ? 'DEMO_HELLO' : 'DEMO_GOODBYE';
+//		$this->template->assign_var('DEMO_MESSAGE', $this->user->lang($l_message, $name));
+//
+//		return $this->helper->render('demo_body.html', $name);
+//	}
 }
