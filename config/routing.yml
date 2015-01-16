@@ -1,0 +1,3 @@
+tsn_tsn8_controller:
+    path: /demo/{name}
+    defaults: { _controller: tsn.tsn8.controller:handle }

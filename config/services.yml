@@ -1,0 +1,15 @@
+services:
+    tsn.tsn8.controller:
+        class: tsn\tsn8\controller\main
+        arguments:
+            - @config
+            - @controller.helper
+            - @template
+            - @user
+    tsn.tsn8.listener:
+        class: tsn\tsn8\event\main_listener
+        arguments:
+            - @controller.helper
+            - @template
+        tags:
+            - { name: event.listener }
