@@ -30,7 +30,7 @@ class main_module
 
 			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 0));
 
-			trigger_error($user->lang('TSN8_MODS_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($user->lang('TSN8_MYSPOT_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
