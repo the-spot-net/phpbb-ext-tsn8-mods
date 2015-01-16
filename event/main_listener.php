@@ -55,6 +55,10 @@ class main_listener implements EventSubscriberInterface
 			'ext_name' => 'tsn/tsn8',
 			'lang_set' => 'common',
 		);
+		$lang_set_ext[] = array(
+			'ext_name' => 'tsn/tsn8',
+			'lang_set' => 'myspot',
+		);
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
