@@ -28,7 +28,9 @@ class main_module
 				trigger_error('FORM_INVALID');
 			}
 
-			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 0));
+			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 1));
+			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_myspot_login', 1));
+			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_mini_forums', 1));
 
 			trigger_error($user->lang('TSN8_MYSPOT_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
@@ -36,6 +38,8 @@ class main_module
 		$template->assign_vars(array(
 			'U_ACTION'                => $this->u_action,
 			'TSN8_ACTIVATE_NEW_POSTS' => $config['tsn8_activate_newposts'],
+			'TSN8_ACTIVATE_MYSPOT_LOGIN' => $config['tsn8_activate_myspot_login'],
+			'TSN8_ACTIVATE_MINI_FORUMS' => $config['tsn8_activate_mini_forums'],
 		));
 	}
 }

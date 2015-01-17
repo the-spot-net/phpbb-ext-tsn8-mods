@@ -24,7 +24,9 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 	public function update_data()
 	{
 		return array(
-			array('config.add', array('tsn8_activate_newposts', 0)),
+			array('config.add', array('tsn8_activate_newposts', 1)),
+			array('config.add', array('tsn8_activate_myspot_login', 1)),
+			array('config.add', array('tsn8_activate_mini_forums', 1)),
 			array(
 				'module.add',
 				array('acp', 'ACP_CAT_DOT_MODS', 'TSN8_MODS_TITLE')

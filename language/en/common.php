@@ -18,6 +18,8 @@ if (empty($lang) || !is_array($lang)) {
 $lang = array_merge($lang, array(
 
 	'ENABLE_MYSPOT_NEW_POSTS'    => 'Enable New Posts Module on My Spot page?',
+	'ENABLE_MYSPOT_LOGIN'        => 'Display Login Module on My Spot page?',
+	'ENABLE_MYSPOT_MINI_FORUMS'  => 'Display mini Forum Index Module on My Spot page?',
 
 	'MYSPOT'                     => 'My Spot',
 
