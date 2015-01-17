@@ -18,7 +18,7 @@ class main_info
 			'title'		=> 'TSN8_MODS_TITLE',
 			'version'	=> '1.0.0',
 			'modes'		=> array(
-				'settings'	=> array('title' => 'TSN8_MYSPOT_SETTINGS', 'auth' => 'ext_tsn/tsn8 && acl_a_board', 'cat' => array('TSN8_MODS_TITLE')),
+				'settings'	=> array('title' => 'TSN8_SETTINGS', 'auth' => 'ext_tsn/tsn8 && acl_a_board', 'cat' => array('TSN8_MODS_TITLE')),
 			),
 		);
 	}

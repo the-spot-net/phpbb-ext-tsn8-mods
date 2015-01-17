@@ -19,7 +19,7 @@ class main_module
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 
 		$user->add_lang('acp/common');
-		$this->tpl_name = 'demo_body';
+		$this->tpl_name = 'acp_settings';
 		$this->page_title = $user->lang('TSN8_MODS_TITLE');
 		add_form_key('tsn/tsn8');
 
@@ -29,10 +29,11 @@ class main_module
 			}
 
 			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 1));
-			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_myspot_login', 1));
-			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_mini_forums', 1));
+			$config->set('tsn8_activate_myspot_login', $request->variable('tsn8_activate_myspot_login', 1));
+			$config->set('tsn8_activate_mini_forums', $request->variable('tsn8_activate_mini_forums', 1));
+			$config->set('tsn8_activate_special_report', $request->variable('tsn8_activate_special_report', 1));
 
-			trigger_error($user->lang('TSN8_MYSPOT_SETTINGS_SAVED') . adm_back_link($this->u_action));
+			trigger_error($user->lang('TSN8_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
@@ -40,6 +41,7 @@ class main_module
 			'TSN8_ACTIVATE_NEW_POSTS' => $config['tsn8_activate_newposts'],
 			'TSN8_ACTIVATE_MYSPOT_LOGIN' => $config['tsn8_activate_myspot_login'],
 			'TSN8_ACTIVATE_MINI_FORUMS' => $config['tsn8_activate_mini_forums'],
+			'TSN8_ACTIVATE_SPECIAL_REPORT' => $config['tsn8_activate_special_report'],
 		));
 	}
 }

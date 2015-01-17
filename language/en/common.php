@@ -17,13 +17,15 @@ if (empty($lang) || !is_array($lang)) {
 
 $lang = array_merge($lang, array(
 
-	'ENABLE_MYSPOT_NEW_POSTS'    => 'Enable New Posts Module on My Spot page?',
-	'ENABLE_MYSPOT_LOGIN'        => 'Display Login Module on My Spot page?',
-	'ENABLE_MYSPOT_MINI_FORUMS'  => 'Display mini Forum Index Module on My Spot page?',
+	'ENABLE_MYSPOT_NEW_POSTS'      => 'Display New Posts Module?',
+	'ENABLE_MYSPOT_LOGIN'          => 'Display Login Module?',
+	'ENABLE_MYSPOT_MINI_FORUMS'    => 'Display Mini Forum Index Module?',
+	'ENABLE_MYSPOT_SPECIAL_REPORT' => 'Display Special Report Module?',
 
-	'MYSPOT'                     => 'My Spot',
+	'MYSPOT'                       => 'My Spot',
+	'MODULE_SETTINGS'              => 'Module Settings',
 
-	'TSN8_MODS_TITLE'            => 'tsn8 Modifications',
-	'TSN8_MYSPOT_SETTINGS'       => 'My Spot Settings',
-	'TSN8_MYSPOT_SETTINGS_SAVED' => 'My Spot Settings have been saved successfully!',
+	'TSN8_MODS_TITLE'              => 'tsn8 Modifications',
+	'TSN8_SETTINGS'                => 'tsn8 Settings',
+	'TSN8_SETTINGS_SAVED'          => 'tsn8 Settings have been saved successfully!',
 ));
