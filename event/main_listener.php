@@ -113,6 +113,17 @@ class main_listener implements EventSubscriberInterface
 		$event['tpl_ary'] = $tpl_array;
 	}
 
+//	public function modify_viewprofile_avatar_path($event) {
+//		$template_data = $event['template_data'];
+//		$template_data['AVATAR_IMG'] = $this->collapse_avatar_path($template_data['AVATAR_IMG']);
+//		$event['template_data'] = $template_data;
+//	}
+
+	private function collapse_avatar_path($avatar_html)
+	{
+		return preg_replace('/(\.\.\/)+?/', './', $avatar_html);
+	}
+
 	private function get_avatar($row, $width_mod = 1, $height_mod = 1, $alt = 'USER_AVATAR')
 	{
 		global $phpbb_root_path, $phpEx;
@@ -130,7 +141,7 @@ class main_listener implements EventSubscriberInterface
 
 		$avatar_html = phpbb_get_avatar($avatar_info, $alt, false);
 
-		return preg_replace('/(\.\.\/)+?/', './', $avatar_html);
+		return $this->collapse_avatar_path($avatar_html);
 	}
 
 	private function smart_excerpt($text, $allowed_words)

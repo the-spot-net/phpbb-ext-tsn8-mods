@@ -27,6 +27,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('tsn8_activate_newposts', 1)),
 			array('config.add', array('tsn8_activate_myspot_login', 1)),
 			array('config.add', array('tsn8_activate_mini_forums', 1)),
+			array('config.add', array('tsn8_activate_mini_profile', 1)),
 			array('config.add', array('tsn8_activate_special_report', 1)),
 			array(
 				'module.add',

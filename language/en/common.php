@@ -21,9 +21,12 @@ $lang = array_merge($lang, array(
 	'ENABLE_MYSPOT_LOGIN'          => 'Display Login Module?',
 	'ENABLE_MYSPOT_MINI_FORUMS'    => 'Display Mini Forum Index Module?',
 	'ENABLE_MYSPOT_SPECIAL_REPORT' => 'Display Special Report Module?',
+	'ENABLE_MYSPOT_MINI_PROFILE'   => 'Display Mini Profile Module?',
 
 	'MYSPOT'                       => 'My Spot',
 	'MODULE_SETTINGS'              => 'Module Settings',
+	'MYSPOT_RECORD_USERS'          => 'Record Users',
+	'MYSPOT_RECORD_ONLINE_USERS'   => '<strong>%1$s</strong> Users on<br />%2$s',
 
 	'TSN8_MODS_TITLE'              => 'tsn8 Modifications',
 	'TSN8_SETTINGS'                => 'tsn8 Settings',

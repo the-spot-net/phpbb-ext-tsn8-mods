@@ -6,6 +6,12 @@
 	<h2>{L_MYSPOT} :: {L_MODULE_SETTINGS}</h2>
 	<fieldset>
 		<dl>
+			<dt><label>{L_ENABLE_MYSPOT_MINI_PROFILE}</label></dt>
+			<dd><input type="radio" class="radio" name="tsn8_activate_mini_profile" value="1" <!-- IF L_ENABLE_MYSPOT_MINI_PROFILE -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
+				<input type="radio" class="radio" name="tsn8_activate_mini_profile" value="0" <!-- IF not L_ENABLE_MYSPOT_MINI_PROFILE -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			</dd>
+		</dl>
+		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_LOGIN}</label></dt>
 			<dd><input type="radio" class="radio" name="tsn8_activate_myspot_login" value="1" <!-- IF TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
 				<input type="radio" class="radio" name="tsn8_activate_myspot_login" value="0" <!-- IF not TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF --> /> {L_NO}

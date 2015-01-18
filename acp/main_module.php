@@ -31,16 +31,18 @@ class main_module
 			$config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 1));
 			$config->set('tsn8_activate_myspot_login', $request->variable('tsn8_activate_myspot_login', 1));
 			$config->set('tsn8_activate_mini_forums', $request->variable('tsn8_activate_mini_forums', 1));
+			$config->set('tsn8_activate_mini_profile', $request->variable('tsn8_activate_mini_profile', 1));
 			$config->set('tsn8_activate_special_report', $request->variable('tsn8_activate_special_report', 1));
 
 			trigger_error($user->lang('TSN8_SETTINGS_SAVED') . adm_back_link($this->u_action));
 		}
 
 		$template->assign_vars(array(
-			'U_ACTION'                => $this->u_action,
-			'TSN8_ACTIVATE_NEW_POSTS' => $config['tsn8_activate_newposts'],
-			'TSN8_ACTIVATE_MYSPOT_LOGIN' => $config['tsn8_activate_myspot_login'],
-			'TSN8_ACTIVATE_MINI_FORUMS' => $config['tsn8_activate_mini_forums'],
+			'U_ACTION'                     => $this->u_action,
+			'TSN8_ACTIVATE_NEW_POSTS'      => $config['tsn8_activate_newposts'],
+			'TSN8_ACTIVATE_MYSPOT_LOGIN'   => $config['tsn8_activate_myspot_login'],
+			'TSN8_ACTIVATE_MINI_PROFILE'   => $config['tsn8_activate_mini_profile'],
+			'TSN8_ACTIVATE_MINI_FORUMS'    => $config['tsn8_activate_mini_forums'],
 			'TSN8_ACTIVATE_SPECIAL_REPORT' => $config['tsn8_activate_special_report'],
 		));
 	}
