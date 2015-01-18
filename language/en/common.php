@@ -23,8 +23,8 @@ $lang = array_merge($lang, array(
 	'ENABLE_MYSPOT_SPECIAL_REPORT' => 'Display Special Report Module?',
 	'ENABLE_MYSPOT_MINI_PROFILE'   => 'Display Mini Profile Module?',
 
-	'MYSPOT'                       => 'My Spot',
 	'MODULE_SETTINGS'              => 'Module Settings',
+	'MYSPOT'                       => 'My Spot',
 	'MYSPOT_RECORD_USERS'          => 'Record Users',
 	'MYSPOT_RECORD_ONLINE_USERS'   => '<strong>%1$s</strong> Users on<br />%2$s',
 
