@@ -6,9 +6,9 @@ Clone into phpBB/ext/tsn/tsn8:
 
     git clone https://github.com/neotsn/phpbb-ext-tsn8-mods.git phpBB/ext/tsn/tsn8
     
-## Based on phpbb 3.1 Acme Demo
+## Original Source
 
-    https://github.com/nickvergessen/phpbb-ext-acme-demo.git phpBB/ext/tsn/tsn8
+[phpbb 3.1 Acme Demo](https://github.com/nickvergessen/phpbb-ext-acme-demo.git)
 
 
 ## License
