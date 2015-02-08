@@ -23,9 +23,11 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'            => 'load_language_on_setup',
-			'core.search_get_topic_data' => 'fetch_extended_new_post_data',
-			'core.search_modify_tpl_ary' => 'template_add_extended_new_post_data',
+			'core.user_setup'                          => 'load_language_on_setup',
+			'core.search_get_topic_data'               => 'fetch_extended_new_post_data',
+			'core.search_modify_tpl_ary'               => 'template_add_extended_new_post_data',
+			'core.display_forums_modify_sql'           => 'fetch_extended_forum_row_data',
+			'core.display_forums_modify_template_vars' => 'fetch_last_post_author_avatar',
 		);
 	}
 
@@ -69,11 +71,13 @@ class main_listener implements EventSubscriberInterface
 
 		// Add the user and post tables for the extended data
 		$sql_from = $event['sql_from'];
-		$sql_from = POSTS_TABLE . ' p, ' . $sql_from . ' LEFT JOIN ' . USERS_TABLE . ' u ON (u.user_id = t.topic_poster) ';
+//		$sql_from = POSTS_TABLE . ' p, ' . $sql_from . ' LEFT JOIN ' . USERS_TABLE . ' u ON (u.user_id = t.topic_poster) ';
+		$sql_from = POSTS_TABLE . ' p, ' . $sql_from . ' LEFT JOIN ' . USERS_TABLE . ' u ON (u.user_id = t.topic_last_poster_id) ';
 
 		// link the user table to the topic last poster id, and the post data to the last topic post id
 		$sql_where = $event['sql_where'];
-		$sql_where .= ' AND u.user_id = t.topic_last_poster_id AND p.post_id = t.topic_last_post_id';
+//		$sql_where .= ' AND u.user_id = t.topic_last_poster_id AND p.post_id = t.topic_last_post_id';
+		$sql_where .= ' AND p.post_id = t.topic_last_post_id';
 
 		// Save all the modifications back to the event
 		$event['sql_select'] = $sql_select;
@@ -113,11 +117,38 @@ class main_listener implements EventSubscriberInterface
 		$event['tpl_ary'] = $tpl_array;
 	}
 
-//	public function modify_viewprofile_avatar_path($event) {
-//		$template_data = $event['template_data'];
-//		$template_data['AVATAR_IMG'] = $this->collapse_avatar_path($template_data['AVATAR_IMG']);
-//		$event['template_data'] = $template_data;
-//	}
+	public function fetch_extended_forum_row_data($event)
+	{
+		$sql_ary = $event['sql_ary'];
+
+		// Add the select fields...
+		$sql_ary['SELECT'] .= ', u.username, u.user_avatar_type, u.user_avatar, u.user_avatar_height, u.user_avatar_width';
+
+		// LEFT JOIN the users table...
+		$sql_ary['LEFT_JOIN'][] = array('FROM' => array(USERS_TABLE => 'u'), 'ON' => 'f.forum_last_poster_id = u.user_id');
+
+		// Put the query back...
+		$event['sql_ary'] = $sql_ary;
+	}
+
+	public function fetch_last_post_author_avatar($event)
+	{
+		global $phpbb_root_path, $phpEx;
+
+		// Includes
+		include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
+
+		$forum_row = $event['forum_row'];
+		$row = $event['row'];
+
+		$avatar_html = $this->get_avatar($row, 0.25, 0.25);
+
+		$forum_row = array_merge($forum_row, array(
+			'LAST_POSTER_AVATAR' => $avatar_html
+		));
+
+		$event['forum_row'] = $forum_row;
+	}
 
 	private function collapse_avatar_path($avatar_html)
 	{
@@ -130,18 +161,57 @@ class main_listener implements EventSubscriberInterface
 
 		include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
 
-		// TODO Add code to scale the avatar down to 75px by 75px
+		// Calculate the results of scaling...
+		$temp_scaled_width = (float)$row['user_avatar_width'] * $width_mod;
+		$temp_scaled_height = (float)$row['user_avatar_height'] * $height_mod;
 
-		$avatar_info = array(
-			'avatar_type'   => $row['user_avatar_type'],
-			'avatar'        => $row['user_avatar'],
-			'avatar_height' => ((float)$row['user_avatar_height'] * $height_mod),
-			'avatar_width'  => ((float)$row['user_avatar_width'] * $width_mod),
-		);
+		// Avatars are assumed to be 100px by 100px
+		$control_scaled_width = (float)100 * $width_mod;
+		$control_scaled_height = (float)100 * $height_mod;
 
-		$avatar_html = phpbb_get_avatar($avatar_info, $alt, false);
+		if ($temp_scaled_height && $temp_scaled_width) {
 
-		return $this->collapse_avatar_path($avatar_html);
+			// Will scaling it cause one side to be bigger than the control?
+			$isScaledTooBig = ($temp_scaled_height > $control_scaled_height || $temp_scaled_width > $control_scaled_width);
+			// Will scaling it cause both sides to be smaller than the control?
+			$isScaledTooSmall = ($temp_scaled_height < $control_scaled_height && $temp_scaled_width < $control_scaled_width);
+
+			// The scaled dimensions are insufficient and need to be further scaled to a control...
+			if ($isScaledTooBig || $isScaledTooSmall) {
+				// If the width is largest, max it at the control width,
+				// and scale the height to match...
+				if ($temp_scaled_width >= $temp_scaled_height) {
+					$scaled_width = $control_scaled_width;
+					$scaled_height = ($temp_scaled_height * $control_scaled_width) / $temp_scaled_width;
+				} else {
+					// Height is largest, scale on the width to match
+					$scaled_height = $control_scaled_height;
+					$scaled_width = ($temp_scaled_width * $control_scaled_height) / $temp_scaled_height;
+				}
+			} else {
+				// Scaling resulted in sufficient dimensions, use them
+				$scaled_width = $temp_scaled_width;
+				$scaled_height = $temp_scaled_height;
+			}
+
+			$avatar_info = array(
+				'avatar_type'   => $row['user_avatar_type'],
+				'avatar'        => $row['user_avatar'],
+				'avatar_height' => $scaled_height,
+				'avatar_width'  => $scaled_width,
+			);
+		} else {
+			$avatar_info = array(
+				'avatar_type'   => 'avatar.driver.local',
+				'avatar'        => 'novelties/tsn_icon_avatar.png',
+				'avatar_height' => $control_scaled_height,
+				'avatar_width'  => $control_scaled_width,
+			);
+		}
+
+		$avatar_info['avatar_title'] = (!empty($row['username'])) ? $row['username'] : '';
+
+		return $this->collapse_avatar_path(phpbb_get_avatar($avatar_info, $alt, false));
 	}
 
 	private function smart_excerpt($text, $allowed_words)
