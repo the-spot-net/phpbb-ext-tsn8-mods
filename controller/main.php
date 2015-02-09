@@ -40,7 +40,7 @@ class main
 	}
 
 //	/**
-//	* Demo controller for route /demo/{name}
+//	* Demo controller for route /tsn/{name}
 //	*
 //	* @param string		$name
 //	* @return \Symfony\Component\HttpFoundation\Response A Symfony Response object
@@ -50,6 +50,6 @@ class main
 //		$l_message = !$this->config['acme_demo_goodbye'] ? 'DEMO_HELLO' : 'DEMO_GOODBYE';
 //		$this->template->assign_var('DEMO_MESSAGE', $this->user->lang($l_message, $name));
 //
-//		return $this->helper->render('acp_settings.html', $name);
+//		return $this->helper->render('sync_settings.html', $name);
 //	}
 }
