@@ -36,6 +36,7 @@ $lang = array_merge($lang, array(
     'CONTINUE_READING'                    => 'Continue Reading',
     'COPYRIGHT_CREDITS'                   => '&copy; Copyright 2015 <a href="https://the-spot.net" target="_blank">the-spot.net</a>. All Rights Reserved.<br />Developed by <a href="https://twitter.com/neotsn" target="_blank">@neotsn</a> of <a href="https://thepizzy.net/blog" target="_blank">thepizzy.net</a> | Powered by <a href="https://www.phpbb.com" target="_blank">these guys</a>',
     'GUESTS'                              => 'Guests',
+    'HAPPY_BIRTHDAY_TO'                   => 'Happy Birthday to:',
     'HIDDEN'                              => 'Hidden',
     'NOTHING_SINCE_LAST_VISIT'            => 'Nothing was posted since your last visit.',
     'ON'                                  => 'on',
