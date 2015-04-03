@@ -12,8 +12,8 @@ namespace tsn\tsn8\event;
 /**
  * @ignore
  */
+use bbcode;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use \bbcode;
 
 /**
  * Event listener
@@ -23,14 +23,18 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'core.user_setup'                          => 'load_language_on_setup',
-            'core.search_get_topic_data'               => 'fetch_extended_new_post_data',
-            'core.search_modify_tpl_ary'               => 'template_add_extended_new_post_data',
-            'core.display_forums_modify_sql'           => 'fetch_extended_forum_row_data',
-            'core.display_forums_modify_forum_rows'    => 'modify_extended_forum_row_data',
-            'core.display_forums_modify_template_vars' => 'template_add_forum_last_post_author_avatar',
-            'core.viewforum_get_topic_data'            => 'fetch_extended_topic_row_data',
-            'core.viewforum_modify_topicrow'           => 'template_add_topic_last_post_author_avatar',
+            'core.user_setup'                           => 'load_language_on_setup',
+            'core.search_get_topic_data'                => 'fetch_extended_new_post_data',
+            'core.search_modify_tpl_ary'                => 'template_add_extended_new_post_data',
+            'core.display_forums_modify_sql'            => 'fetch_extended_forum_row_data',
+            'core.display_forums_modify_forum_rows'     => 'modify_extended_forum_row_data',
+            'core.display_forums_modify_template_vars'  => 'template_add_forum_last_post_author_avatar',
+            'core.viewforum_get_topic_data'             => 'fetch_extended_topic_row_data',
+            'core.viewforum_modify_topicrow'            => 'template_add_topic_last_post_author_avatar',
+            'core.memberlist_view_profile'              => 'modify_memberlist_profile_data',
+            'core.memberlist_prepare_profile_data'      => 'template_add_profile_avatar_background',
+//            'core.memberlist_team_modify_query'         => 'modify_memberlist_team_data',
+//            'core.memberlist_team_modify_template_vars' => 'template_add_memberlist_team_user_avatar',
         );
     }
 
@@ -160,6 +164,61 @@ class main_listener implements EventSubscriberInterface
             }
         }
         $event['forum_rows'] = $forum_rows;
+    }
+
+//    public function modify_memberlist_member_data($event)
+//    {
+//        $sql_array = $event['sql_ary'];
+//
+//        $sql_array['SELECT'] = $sql_array['SELECT'] . ' u.user_avatar_type, u.user_avatar, u.user_avatar_width, u.user_avatar_height';
+//
+//        $event['sql_ary'] = $sql_array;
+//    }
+
+//    public function template_add_memberlist_team_user_avatar($event)
+//    {
+//        $template_vars = $event['template_vars'];
+//        $row = $event['row'];
+//
+//        $template_vars['USER_AVATAR'] = $this->get_avatar($row, 0.75);
+//
+//        $event['template_vars'] = $template_vars;
+//    }
+
+    /** Modify the View Profile data
+     *
+     * @param $event
+     */
+    public function modify_memberlist_profile_data($event)
+    {
+        // Initialization
+        $member = $event['member'];
+
+        // Get the avatar's source path
+        preg_match_all('/src="\.(.+?)"/', $this->get_avatar($member), $avatar_data);
+
+        // Prepare the url for exif capture
+        $avatar_path = array_shift($avatar_data[1]);
+        $avatar_path = (strstr($avatar_path,
+                '/http/') === false) ? 'https://the-spot.net/phorums' . $avatar_path : $avatar_path;
+
+        $exif_imagetype = exif_imagetype($avatar_path);
+
+        $color = $this->get_dominant_color_from_image($avatar_path, $exif_imagetype);
+
+        $member['background_color'] = $color;
+        $event['member'] = $member;
+    }
+
+    public function template_add_profile_avatar_background($event)
+    {
+        $template_data = $event['template_data'];
+        $data = $event['data'];
+
+        // Created from ->modify_memberlist_profile_data();
+        $template_data['AVATAR_BACKGROUND_COLOR'] = $data['background_color'];
+
+        $event['template_data'] = $template_data;
     }
 
     /**
@@ -348,6 +407,74 @@ class main_listener implements EventSubscriberInterface
     private function collapse_spaces($text)
     {
         return preg_replace('/\s+?/', ' ', $text);
+    }
+
+    private function get_dominant_color_from_image($source_file, $exif_imagetype)
+    {
+        switch ($exif_imagetype) {
+//            case IMAGETYPE_GIF:
+//                $im = imagecreatefromgif($source_file);
+//                break;
+            case IMAGETYPE_JPEG:
+                $im = imagecreatefromjpeg($source_file);
+                break;
+            case IMAGETYPE_PNG:
+                $im = imagecreatefrompng($source_file);
+                break;
+            default:
+                $im = null;
+                break;
+        }
+
+        // False if error, null if unsupported
+        if ($im) {
+            $imgw = imagesx($im);
+            $imgh = imagesy($im);
+
+            $rgb_colors = $rgb_counts = array();
+            for ($i = 0; $i < $imgw; $i++) {
+                for ($j = 0; $j < $imgh; $j++) {
+
+                    // get the rgb value for current pixel
+                    $rgb = ImageColorAt($im, $i, $j);
+
+                    // extract each value for r, g, b
+                    $r = ($rgb >> 16) & 0xFF;
+                    $g = ($rgb >> 8) & 0xFF;
+                    $b = $rgb & 0xFF;
+
+                    $key = $r . '_' . $g . '_' . $b;
+
+                    if (!isset($rgb_counts[$key])) {
+                        $rgb_counts[$key] = 0;
+                        $rgb_colors[$key] = '';
+                    }
+
+                    $rgb_counts[$key]++;
+                    $rgb_colors[$key] = $key;
+                }
+            }
+
+            // Sort by rgb count, biggest to smallest
+            arsort($rgb_counts);
+
+            // Ditch the white color
+            unset($rgb_counts['255_255_255'], $rgb_colors['255_255_255']);
+            unset($rgb_counts['0_0_0'], $rgb_colors['0_0_0']);
+            // Slice off the 2nd most abundant color
+            $max_color = array_slice($rgb_counts, 0, 1);
+            // Flip to make the rgb key into the value
+            $max_color = array_flip($max_color);
+            // Extract that rgb value
+            $rgb = array_shift($max_color);
+
+            // create the rgb CSS color
+            $color = 'rgb(' . str_replace('_', ', ', $rgb_colors[$rgb]) . ')';
+        } else {
+            $color = '#003366';
+        }
+
+        return $color;
     }
 }
 
