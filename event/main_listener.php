@@ -202,7 +202,7 @@ class main_listener implements EventSubscriberInterface
         $avatar_path = (strstr($avatar_path,
                 '/http/') === false) ? 'https://the-spot.net/phorums' . $avatar_path : $avatar_path;
 
-        $exif_imagetype = exif_imagetype($avatar_path);
+        $exif_imagetype = @exif_imagetype($avatar_path);
 
         $color = $this->get_dominant_color_from_image($avatar_path, $exif_imagetype);
 
