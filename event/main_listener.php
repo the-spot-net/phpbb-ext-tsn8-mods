@@ -265,13 +265,16 @@ class main_listener implements EventSubscriberInterface
         global $phpbb_root_path, $phpEx;
 
         // Includes
+        include_once($phpbb_root_path . 'includes/functions.'.$phpEx);
         include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
 
         $forum_row = $event['forum_row'];
         $row = $event['row'];
 
         $event['forum_row'] = array_merge($forum_row, array(
-            'LAST_POSTER_AVATAR' => $this->get_avatar($row, 0.25)
+            'LAST_POSTER_AVATAR' => $this->get_avatar($row, 0.25),
+            'U_LAST_POSTER_LINK' => append_sid("memberlist.$phpEx", "mode=viewprofile&u=".$row['forum_last_poster_id']),
+
         ));
     }
 
@@ -283,16 +286,19 @@ class main_listener implements EventSubscriberInterface
      */
     public function template_add_topic_last_post_author_avatar($event)
     {
-        global $phpbb_root_path, $phpEx;
+        global $phpbb_root_path, $phpEx, $user, $config;
 
         // Includes
+        include_once($phpbb_root_path . 'includes/functions.'.$phpEx);
         include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
 
         $topic_row = $event['topic_row'];
         $row = $event['row'];
 
         $event['topic_row'] = array_merge($topic_row, array(
-            'LAST_POST_AUTHOR_AVATAR' => $this->get_avatar($row, 0.25)
+            'LAST_POST_AUTHOR_AVATAR' => $this->get_avatar($row, 0.25),
+            'U_LAST_POST_AUTHOR_LINK' => append_sid("memberlist.$phpEx", "mode=viewprofile&u=".$row['topic_last_poster_id']),
+
         ));
     }
 
