@@ -23,18 +23,19 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'core.user_setup'                           => 'load_language_on_setup',
-            'core.search_get_topic_data'                => 'fetch_extended_new_post_data',
-            'core.search_modify_tpl_ary'                => 'template_add_extended_new_post_data',
-            'core.display_forums_modify_sql'            => 'fetch_extended_forum_row_data',
-            'core.display_forums_modify_forum_rows'     => 'modify_extended_forum_row_data',
-            'core.display_forums_modify_template_vars'  => 'template_add_forum_last_post_author_avatar',
-            'core.viewforum_get_topic_data'             => 'fetch_extended_topic_row_data',
-            'core.viewforum_modify_topicrow'            => 'template_add_topic_last_post_author_avatar',
-            'core.memberlist_view_profile'              => 'modify_memberlist_profile_data',
-            'core.memberlist_prepare_profile_data'      => 'template_add_profile_avatar_background',
-//            'core.memberlist_team_modify_query'         => 'modify_memberlist_team_data',
-//            'core.memberlist_team_modify_template_vars' => 'template_add_memberlist_team_user_avatar',
+            'core.user_setup'                          => 'load_language_on_setup',
+            'core.search_get_topic_data'               => 'fetch_extended_new_post_data',
+            'core.search_get_active_topic_data'        => 'fetch_extended_active_topic_data',
+            'core.search_modify_tpl_ary'               => 'template_add_extended_new_post_data',
+            'core.display_forums_modify_sql'           => 'fetch_extended_forum_row_data',
+            'core.display_forums_modify_forum_rows'    => 'modify_extended_forum_row_data',
+            'core.display_forums_modify_template_vars' => 'template_add_forum_last_post_author_avatar',
+            'core.viewforum_get_topic_data'            => 'fetch_extended_topic_row_data',
+            'core.viewforum_modify_topicrow'           => 'template_add_topic_last_post_author_avatar',
+            'core.memberlist_view_profile'             => 'modify_memberlist_profile_data',
+            'core.memberlist_prepare_profile_data'     => 'template_add_profile_avatar_background',
+            //            'core.memberlist_team_modify_query'         => 'modify_memberlist_team_data',
+            //            'core.memberlist_team_modify_template_vars' => 'template_add_memberlist_team_user_avatar',
         );
     }
 
@@ -93,6 +94,25 @@ class main_listener implements EventSubscriberInterface
         // link the user table to the topic last poster id, and the post data to the last topic post id
         $sql_where = $event['sql_where'];
         $sql_where .= ' AND p.post_id = t.topic_last_post_id';
+
+        // Save all the modifications back to the event
+        $event['sql_select'] = $sql_select;
+        $event['sql_from'] = $sql_from;
+        $event['sql_where'] = $sql_where;
+    }
+
+    public function fetch_extended_active_topic_data($event) {
+        // Pull the avatar dimensions and post text
+        $sql_select = $event['sql_select'];
+        $sql_select .= ', u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height, p.post_text, p.bbcode_uid, p.bbcode_bitfield';
+
+        // Add the user and post tables for the extended data
+        $sql_from = $event['sql_from'];
+        $sql_from = POSTS_TABLE . ' p, ' . $sql_from . ' LEFT JOIN ' . USERS_TABLE . ' u ON (u.user_id = t.topic_poster) ';
+
+        // link the user table to the topic last poster id, and the post data to the last topic post id
+        $sql_where = $event['sql_where'];
+        $sql_where .= ' AND p.post_id = t.topic_first_post_id';
 
         // Save all the modifications back to the event
         $event['sql_select'] = $sql_select;
@@ -202,7 +222,7 @@ class main_listener implements EventSubscriberInterface
         $avatar_path = (strstr($avatar_path,
                 '/http/') === false) ? 'https://the-spot.net/phorums' . $avatar_path : $avatar_path;
 
-        $exif_imagetype = exif_imagetype($avatar_path);
+        $exif_imagetype = @exif_imagetype($avatar_path);
 
         $color = $this->get_dominant_color_from_image($avatar_path, $exif_imagetype);
 
@@ -216,7 +236,7 @@ class main_listener implements EventSubscriberInterface
         $data = $event['data'];
 
         // Created from ->modify_memberlist_profile_data();
-        $template_data['AVATAR_BACKGROUND_COLOR'] = $data['background_color'];
+        $template_data['AVATAR_BACKGROUND_COLOR'] = (!empty($data['background_color'])) ? $data['background_color'] : '';
 
         $event['template_data'] = $template_data;
     }
@@ -265,13 +285,17 @@ class main_listener implements EventSubscriberInterface
         global $phpbb_root_path, $phpEx;
 
         // Includes
+        include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
         include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
 
         $forum_row = $event['forum_row'];
         $row = $event['row'];
 
         $event['forum_row'] = array_merge($forum_row, array(
-            'LAST_POSTER_AVATAR' => $this->get_avatar($row, 0.25)
+            'LAST_POSTER_AVATAR' => $this->get_avatar($row, 0.25),
+            'U_LAST_POSTER_LINK' => append_sid("memberlist.$phpEx",
+                "mode=viewprofile&u=" . $row['forum_last_poster_id']),
+
         ));
     }
 
@@ -283,16 +307,20 @@ class main_listener implements EventSubscriberInterface
      */
     public function template_add_topic_last_post_author_avatar($event)
     {
-        global $phpbb_root_path, $phpEx;
+        global $phpbb_root_path, $phpEx, $user, $config;
 
         // Includes
+        include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
         include_once($phpbb_root_path . 'includes/functions_content.' . $phpEx);
 
         $topic_row = $event['topic_row'];
         $row = $event['row'];
 
         $event['topic_row'] = array_merge($topic_row, array(
-            'LAST_POST_AUTHOR_AVATAR' => $this->get_avatar($row, 0.25)
+            'LAST_POST_AUTHOR_AVATAR' => $this->get_avatar($row, 0.25),
+            'U_LAST_POST_AUTHOR_LINK' => append_sid("memberlist.$phpEx",
+                "mode=viewprofile&u=" . $row['topic_last_poster_id']),
+
         ));
     }
 
