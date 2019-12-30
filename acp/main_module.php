@@ -1,10 +1,8 @@
 <?php
 /**
- *
  * @package       phpBB Extension - Acme Demo
  * @copyright (c) 2013 phpBB Group
  * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
  */
 
 namespace tsn\tsn8\acp;
@@ -37,13 +35,13 @@ class main_module
             trigger_error($user->lang('TSN8_SETTINGS_SAVED') . adm_back_link($this->u_action));
         }
 
-        $template->assign_vars(array(
+        $template->assign_vars([
             'U_ACTION'                     => $this->u_action,
             'TSN8_ACTIVATE_NEW_POSTS'      => $config['tsn8_activate_newposts'],
             'TSN8_ACTIVATE_MYSPOT_LOGIN'   => $config['tsn8_activate_myspot_login'],
             'TSN8_ACTIVATE_MINI_PROFILE'   => $config['tsn8_activate_mini_profile'],
             'TSN8_ACTIVATE_MINI_FORUMS'    => $config['tsn8_activate_mini_forums'],
             'TSN8_ACTIVATE_SPECIAL_REPORT' => $config['tsn8_activate_special_report'],
-        ));
+        ]);
     }
 }

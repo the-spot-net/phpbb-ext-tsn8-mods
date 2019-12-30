@@ -1,10 +1,8 @@
 <?php
 /**
- *
  * @package       phpBB Extension - Acme Demo
  * @copyright (c) 2013 phpBB Group
  * @license       http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
- *
  */
 
 if (!defined('IN_PHPBB')) {
@@ -12,10 +10,10 @@ if (!defined('IN_PHPBB')) {
 }
 
 if (empty($lang) || !is_array($lang)) {
-    $lang = array();
+    $lang = [];
 }
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 
     'ENABLE_MYSPOT_NEW_POSTS'      => 'Display New Posts Module?',
     'ENABLE_MYSPOT_LOGIN'          => 'Display Login Module?',
@@ -29,4 +27,4 @@ $lang = array_merge($lang, array(
     'TSN8_MODS_TITLE'              => 'tsn8 Modifications',
     'TSN8_SETTINGS'                => 'tsn8 Settings',
     'TSN8_SETTINGS_SAVED'          => 'tsn8 Settings have been saved successfully!',
-));
+]);

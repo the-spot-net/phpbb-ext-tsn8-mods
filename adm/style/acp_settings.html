@@ -2,43 +2,43 @@
 
 <h1>{L_SETTINGS}</h1>
 
-<form id="acp_board" method="post" action="{U_ACTION}">
+<form action="{U_ACTION}" id="acp_board" method="post">
 	<h2>{L_MYSPOT} :: {L_MODULE_SETTINGS}</h2>
 	<fieldset>
 		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_MINI_PROFILE}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_mini_profile" value="1" <!-- IF TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_mini_profile" value="0" <!-- IF not TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			<dd><input class="radio" name="tsn8_activate_mini_profile" type="radio" value="1" <!-- IF TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input class="radio" name="tsn8_activate_mini_profile" type="radio" value="0" <!-- IF not TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF --> /> {L_NO}
 			</dd>
 		</dl>
 		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_LOGIN}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_myspot_login" value="1" <!-- IF TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_myspot_login" value="0" <!-- IF not TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			<dd><input class="radio" name="tsn8_activate_myspot_login" type="radio" value="1" <!-- IF TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input class="radio" name="tsn8_activate_myspot_login" type="radio" value="0" <!-- IF not TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF --> /> {L_NO}
 			</dd>
 		</dl>
 		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_MINI_FORUMS}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_mini_forums" value="1" <!-- IF TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_mini_forums" value="0" <!-- IF not TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			<dd><input class="radio" name="tsn8_activate_mini_forums" type="radio" value="1" <!-- IF TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input class="radio" name="tsn8_activate_mini_forums" type="radio" value="0" <!-- IF not TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF --> /> {L_NO}
 			</dd>
 		</dl>
 		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_SPECIAL_REPORT}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_special_report" value="1" <!-- IF TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_special_report" value="0" <!-- IF not TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			<dd><input class="radio" name="tsn8_activate_special_report" type="radio" value="1" <!-- IF TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input class="radio" name="tsn8_activate_special_report" type="radio" value="0" <!-- IF not TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF --> /> {L_NO}
 			</dd>
 		</dl>
 		<dl>
 			<dt><label>{L_ENABLE_MYSPOT_NEW_POSTS}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_newposts" value="1" <!-- IF TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_newposts" value="0" <!-- IF not TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF --> /> {L_NO}
+			<dd><input class="radio" name="tsn8_activate_newposts" type="radio" value="1" <!-- IF TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+				<input class="radio" name="tsn8_activate_newposts" type="radio" value="0" <!-- IF not TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF --> /> {L_NO}
 			</dd>
 		</dl>
 
 		<p class="submit-buttons">
-			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}"/>&nbsp;
-			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}"/>
+			<input class="button1" id="submit" name="submit" type="submit" value="{L_SUBMIT}"/>&nbsp;
+			<input class="button2" id="reset" name="reset" type="reset" value="{L_RESET}"/>
 		</p>
 
 		{S_FORM_TOKEN}
