@@ -2,8 +2,11 @@ services:
     tsn.tsn8.controller:
         class: tsn\tsn8\controller\main
         arguments:
+            - @auth
             - @config
+            - @db
             - @controller.helper
+            - @language
             - @template
             - @user
     tsn.tsn8.listener:
