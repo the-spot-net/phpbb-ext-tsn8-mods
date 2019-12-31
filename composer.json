@@ -2,18 +2,20 @@
 	"name": "tsn/tsn8",
 	"type": "phpbb-extension",
 	"description": "Modifications needed to add tsn8 features",
-	"homepage": "https://github.com/neotsn/phpbb-ext-tsn8-mods",
-	"version": "0.1",
-	"time": "2015-01-15",
+	"homepage": "https://github.com/the-spot-net/phpbb-ext-tsn8-mods",
+	"version": "2.0.0",
+	"time": "2019-12-30",
 	"license": "GPL-2.0",
-	"authors": [{
+	"authors": [
+		{
 			"name": "@neotsn",
 			"email": "neotsn@the-spot.net",
 			"homepage": "https://about.me/neotsn/",
 			"role": "Developer"
-		}],
+		}
+	],
 	"require": {
-		"php": ">=5.5.14"
+		"php": ">=7.2.0"
 	},
 	"require-dev": {
 		"phpbb/epv": "dev-master"
@@ -21,7 +23,7 @@
 	"extra": {
 		"display-name": "tsn8 Modifications",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1.2"
+			"phpbb/phpbb": ">=3.2.8"
 		}
 	}
 }
