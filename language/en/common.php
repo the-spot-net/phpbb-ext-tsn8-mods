@@ -24,7 +24,7 @@ $lang = array_merge($lang, [
     'MYSPOT'                       => 'My Spot',
     'MYSPOT_RECORD_USERS'          => 'Record Users',
     'MYSPOT_RECORD_ONLINE_USERS'   => '<strong>%1$s</strong> Users on<br />%2$s',
-    'TSN8_MODS_TITLE'              => 'tsn8 Modifications',
-    'TSN8_SETTINGS'                => 'tsn8 Settings',
-    'TSN8_SETTINGS_SAVED'          => 'tsn8 Settings have been saved successfully!',
+    'TSN_EXTENSION_TITLE'          => 'tsn Extension Features',
+    'TSN_SETTINGS'                 => 'tsn Settings',
+    'TSN_SETTINGS_SAVED'           => 'tsn Settings have been saved successfully!',
 ]);

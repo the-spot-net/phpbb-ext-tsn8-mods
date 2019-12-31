@@ -7,19 +7,26 @@
 
 namespace tsn\tsn8\acp;
 
+/**
+ * Class main_info
+ * @package tsn\tsn8\acp
+ */
 class main_info
 {
-    function module()
+    /**
+     * @return array
+     */
+    public function module()
     {
         return [
             'filename' => '\tsn\tsn8\acp\main_module',
-            'title'    => 'TSN8_MODS_TITLE',
-            'version'  => '1.0.0',
+            'title'    => 'TSN_EXTENSION_TITLE',
+            'version'  => '2.0.0',
             'modes'    => [
                 'settings' => [
-                    'title' => 'TSN8_SETTINGS',
+                    'title' => 'TSN_SETTINGS',
                     'auth'  => 'ext_tsn/tsn8 && acl_a_board',
-                    'cat'   => ['TSN8_MODS_TITLE'],
+                    'cat'   => ['TSN_EXTENSION_TITLE'],
                 ],
             ],
         ];
