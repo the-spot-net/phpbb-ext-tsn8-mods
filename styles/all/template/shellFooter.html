@@ -68,22 +68,28 @@
 </div>
 
 <script src="{T_JQUERY_LINK}"></script>
-<!-- IF S_ALLOW_CDN -->
-<script>window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');</script><!-- ENDIF -->
-<script src="{T_ASSETS_PATH}/javascript/core.js?assets_version={T_ASSETS_VERSION}"></script>
-<!-- INCLUDEJS forum_fn.js -->
-<!-- INCLUDEJS ajax.js -->
+
 <!-- IF S_ALLOW_CDN -->
 <script>
-  (function ($) {
-    var $fa_cdn = $('head').find('link[rel="stylesheet"]').first(),
-      $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
-    if ($span.css('fontFamily') !== 'FontAwesome') {
-      $fa_cdn.after('<link href="{T_ASSETS_PATH}/css/font-awesome.min.css" rel="stylesheet">');
-      $fa_cdn.remove();
-    }
-    $span.remove();
-  })(jQuery);
+  // window.jQuery || document.write('\x3Cscript src="{T_ASSETS_PATH}/javascript/jquery.min.js?assets_version={T_ASSETS_VERSION}">\x3C/script>');
+</script>
+<!-- ENDIF -->
+<script src="{T_ASSETS_PATH}/javascript/core.js?assets_version={T_ASSETS_VERSION}"></script>
+
+<!-- IINCLUDEJS forum_fn.js -->
+<!-- IINCLUDEJS ajax.js -->
+
+<!-- IF S_ALLOW_CDN -->
+<script>
+  // (function ($) {
+  //   var $fa_cdn = $('head').find('link[rel="stylesheet"]').first(),
+  //     $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
+  //   if ($span.css('fontFamily') !== 'FontAwesome') {
+  //     $fa_cdn.after('<link href="{T_ASSETS_PATH}/css/font-awesome.min.css" rel="stylesheet">');
+  //     $fa_cdn.remove();
+  //   }
+  //   $span.remove();
+  // })(jQuery);
 </script>
 <!-- ENDIF -->
 
@@ -116,7 +122,10 @@
 
 <!-- EVENT overall_footer_after -->
 
-<!-- IF S_PLUPLOAD --><!-- INCLUDE plupload.html --><!-- ENDIF -->
+<!-- IF S_PLUPLOAD -->
+<!-- INCLUDE plupload.html -->
+<!-- ENDIF -->
+
 {$SCRIPTS}
 
 <!-- EVENT overall_footer_body_after -->

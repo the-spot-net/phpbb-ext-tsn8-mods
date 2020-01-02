@@ -106,7 +106,10 @@ class main
         $this->user->setup(['viewforum', 'memberlist', 'groups']);
 
         $this->template->assign_vars([
-            'T_EXT_PATH' => '/phorums/ext/tsn/tsn/styles/all/theme',
+            'SERVER_PROTOCOL' => $this->config['server_protocol'],
+            'SERVER_DOMAIN'   => $this->config['server_name'],
+            'SERVER_PORT'     => (!in_array((int)$this->config['server_port'], [0, 80, 443])) ? ':' . $this->config['server_port'] : '',
+            'T_EXT_PATH'      => '/phorums/ext/tsn/tsn/styles/all/theme',
 
             'U_TSN_MYSPOT' => self::$boardUrl . constants::URL_MY_SPOT,
         ]);
