@@ -9,7 +9,7 @@ const directories = {
     path.resolve(__dirname, 'node_modules/')
   ],
   js_compile_exclusions: [
-    path.resolve(__dirname, 'node_modules/jquery')
+    // path.resolve(__dirname, 'node_modules/jquery')
   ],
   watchIgnore: [
     path.resolve(__dirname, 'node_modules/')
