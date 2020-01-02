@@ -1,7 +1,8 @@
 // Import the tsn variable assignments
 @import "config/vars";
-@import "config/overrides";
-@import "config/mdc";
+@import "config/mdc-settings";
+@import "config/mdc-includes";
+@import "config/mdc-overrides";
 
 #tsn {
   @import "tsn/core";
