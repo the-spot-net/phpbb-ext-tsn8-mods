@@ -23,14 +23,31 @@ export default class tsnHeader extends tsnPlugin {
 
   constructDynamicProperties() {
     super.constructDynamicProperties();
-    this.leftNavigationDrawer = this.leftNavigationDrawer || new MDCDrawer(document.querySelector(tsnHeader.selectors.mdcDrawer));
-    this.topAppBar = this.topAppBar || new MDCTopAppBar(document.querySelector(tsnHeader.selectors.mdcTopAppBar));
+
+    this.MDCDrawer = this.MDCDrawer || new MDCDrawer(document.querySelector(tsnHeader.selectors.mdcDrawer));
+    this.MDCTopAppBar = this.MDCTopAppBar || new MDCTopAppBar(document.querySelector(tsnHeader.selectors.mdcTopAppBar));
+
+    this.navigationList = this.navigationList || document.querySelector(tsnHeader.selectors.mdcDrawerList);
+    this.mainContent = this.mainContent || document.querySelector('main');
   }
 
   constructListeners() {
     // Updates the drawer's open state to its opposite
-    this.topAppBar.listen('MDCTopAppBar:nav', () => {
-      this.leftNavigationDrawer.open = !this.leftNavigationDrawer.open;
+    this.MDCTopAppBar.listen(tsnHeader.events.mdcTopAppBar.navClick, () => {
+      this.MDCDrawer.open = !this.MDCDrawer.open;
+    });
+
+    // Close the drawer when clicking a list item in it
+    this.navigationList.addEventListener('click', () => {
+      this.MDCDrawer.open = false;
+    });
+
+    // Force-focus the first focusable element in the main content after the drawer is closed
+    document.body.addEventListener(tsnHeader.events.mdcDrawer.closed, () => {
+      const firstElement = this.mainContent.querySelector('input, button');
+      if (firstElement) {
+        firstElement.focus();
+      }
     });
   }
 }
@@ -43,8 +60,18 @@ if (!$.fn.tsnHeader) {
   };
 }
 
+tsnHeader.events = {
+  mdcDrawer: {
+    closed: 'MDCDrawer:closed',
+    opened: 'MDCDrawer:opened'
+  },
+  mdcTopAppBar: {
+    navClicked: 'MDCTopAppBar:nav'
+  }
+};
 tsnHeader.pluginName = 'tsnHeader';
 tsnHeader.selectors = {
   mdcDrawer: '.mdc-drawer',
+  mdcDrawerList: '.mdc-drawer .mdc-list',
   mdcTopAppBar: '.mdc-top-app-bar'
 };
