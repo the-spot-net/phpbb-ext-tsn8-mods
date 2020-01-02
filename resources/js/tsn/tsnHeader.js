@@ -33,7 +33,7 @@ export default class tsnHeader extends tsnPlugin {
 
   constructListeners() {
     // Updates the drawer's open state to its opposite
-    this.MDCTopAppBar.listen(tsnHeader.events.mdcTopAppBar.navClick, () => {
+    this.MDCTopAppBar.listen(tsnHeader.events.mdcTopAppBar.navClicked, () => {
       this.MDCDrawer.open = !this.MDCDrawer.open;
     });
 
