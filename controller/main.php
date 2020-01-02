@@ -32,6 +32,8 @@ class main
     /* @var \phpbb\user */
     protected $user;
 
+    /** @var string */
+    private static $boardUrl;
     /** @var string|null */
     private static $phpbbRootPath = null;
     /** @var false|string */
@@ -60,6 +62,7 @@ class main
 
         self::$phpbbRootPath = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
         self::$phpEx = substr(strrchr(__FILE__, '.'), 1);
+        self::$boardUrl = generate_board_url() . '/';
     }
 
     /**
@@ -73,10 +76,10 @@ class main
     {
 
         switch ($name) {
-            case constants::URL_MY_SPOT:
+            case constants::ROUTE_MY_SPOT:
                 $output = $this->pageMySpot();
                 break;
-            case constants::URL_SPECIAL_REPORT:
+            case constants::ROUTE_SPECIAL_REPORT:
                 $output = $this->moduleSpecialReport();
                 break;
             default:
@@ -103,7 +106,9 @@ class main
         $this->user->setup(['viewforum', 'memberlist', 'groups']);
 
         $this->template->assign_vars([
-            'T_EXT_PATH' => '/phorums/ext/tsn/tsn/styles/all/theme',
+            'T_EXT_PATH' => self::$boardUrl . 'ext/tsn/tsn/styles/all/theme',
+
+            'U_TSN_MYSPOT' => self::$boardUrl . constants::URL_MY_SPOT,
         ]);
     }
 
