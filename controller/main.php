@@ -106,7 +106,7 @@ class main
         $this->user->setup(['viewforum', 'memberlist', 'groups']);
 
         $this->template->assign_vars([
-            'T_EXT_PATH' => self::$boardUrl . 'ext/tsn/tsn/styles/all/theme',
+            'T_EXT_PATH' => '/phorums/ext/tsn/tsn/styles/all/theme',
 
             'U_TSN_MYSPOT' => self::$boardUrl . constants::URL_MY_SPOT,
         ]);
