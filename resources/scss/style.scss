@@ -4,7 +4,7 @@
 @import "config/mdc";
 
 #tsn {
-  @import "styles/shell";
-  @import "styles/assets";
+  @import "tsn/core";
+  @import "tsn/assets";
 }
 

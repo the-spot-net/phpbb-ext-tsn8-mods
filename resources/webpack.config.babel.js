@@ -9,7 +9,7 @@ const directories = {
     path.resolve(__dirname, 'node_modules/')
   ],
   js_compile_exclusions: [
-    // path.resolve(__dirname, 'node_modules/jquery'),
+    path.resolve(__dirname, 'node_modules/jquery')
   ],
   watchIgnore: [
     path.resolve(__dirname, 'node_modules/')
@@ -19,13 +19,13 @@ const directories = {
 // File sets
 const files = {
   tsn_scripts: [
-    // 'jquery',
+    'jquery',
     // TODO Include any material scripts here
     ...glob.sync(path.resolve(__dirname, 'js/**/*.js'))
   ],
 
   tsn_theme: [
-    path.resolve(__dirname, 'scss/tsn.scss')
+    path.resolve(__dirname, 'scss/style.scss')
   ]
 };
 
@@ -84,7 +84,6 @@ module.exports = function (env = {}) {
     output: {
       path: directories.dist,
       filename: 'js/[name].js'
-      // publicPath: '/resources/dist/'
     },
     performance: { hints: false },
     plugins: [
