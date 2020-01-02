@@ -16,8 +16,13 @@ namespace tsn\tsn\controller;
 class constants
 {
     // URL Stubs
-    const URL_MY_SPOT = 'my-spot';
-    const URL_SPECIAL_REPORT = 'special-report';
+    const ROUTE_MY_SPOT = 'my-spot';
+    const ROUTE_SPECIAL_REPORT = 'special-report';
+
+    // URL Paths to be appended to $boardUrl
+    const URL_EXT_DIR = 'tsn/';
+    const URL_MY_SPOT = self::URL_EXT_DIR . self::ROUTE_MY_SPOT;
+    const URL_SPECIAL_REPORT = self::URL_EXT_DIR . self::ROUTE_SPECIAL_REPORT;
 
     // Database Values
     const FORUM_SPECIAL_REPORT_ID = 14;
