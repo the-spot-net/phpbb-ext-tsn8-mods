@@ -1,5 +1,6 @@
 const glob = require('glob');
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // Directory Variables
@@ -87,6 +88,10 @@ module.exports = function (env = {}) {
     },
     performance: { hints: false },
     plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      }),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css'
       })
