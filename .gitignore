@@ -51,3 +51,4 @@ crashlytics-build.properties
 
 vendor
 composer.phar
+/resources/node_modules/
