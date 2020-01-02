@@ -4,7 +4,7 @@
   "description": "phpBB Extension adding tsn features & modules",
   "main": "index.js",
   "scripts": {
-    "build:dev": "npm run task:clean; webpack --env.development",
+    "build:dev": "npm run task:clean; webpack --optimize-minimize --env.development",
     "build:prod": "npm run task:clean; webpack --optimize-minimize",
     "task:clean": "rm -rf ../styles/all/theme/css/* ../styles/all/theme/js/*"
   },
