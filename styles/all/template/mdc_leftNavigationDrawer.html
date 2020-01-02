@@ -5,10 +5,53 @@
     </div>
     <div class="mdc-drawer__content">
         <nav class="mdc-list">
-            <a aria-current="page" class="mdc-list-item mdc-list-item--activated" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">inbox</i>
-                <span class="mdc-list-item__text">Inbox</span>
+
+            <!-- EVENT navbar_header_quick_links_before -->
+
+            <a aria-current="page" class="mdc-list-item mdc-list-item--activated" href="{U_TSN_MYSPOT}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">home</i>
+                <span class="mdc-list-item__text">My Spot</span>
             </a>
+
+            <!-- IF S_DISPLAY_SEARCH -->
+            <h6 class="mdc-list-group__subheader">Quick Search</h6>
+            <!-- IF S_REGISTERED_USER -->
+            <a class="mdc-list-item" href="{U_SEARCH_SELF}">
+                <!-- TODO Inject User Avatar as Icon for this item -->
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">star</i>
+                <span class="mdc-list-item__text">{L_SEARCH_SELF}</span>
+            </a>
+            <!-- ENDIF -->
+            <!-- IF S_USER_LOGGED_IN -->
+            <a class="mdc-list-item" href="{U_SEARCH_NEW}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">new_releases</i>
+                <span class="mdc-list-item__text">{L_SEARCH_NEW}</span>
+            </a>
+            <!-- ENDIF -->
+            <!-- IF S_LOAD_UNREADS -->
+            <a class="mdc-list-item" href="{U_SEARCH_UNREAD}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">bookmark</i>
+                <span class="mdc-list-item__text">{L_SEARCH_UNREAD}</span>
+            </a>
+            <!-- ENDIF -->
+            <a class="mdc-list-item" href="{U_SEARCH_UNANSWERED}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">speaker_notes_off</i>
+                <span class="mdc-list-item__text">{L_SEARCH_UNANSWERED}</span>
+            </a>
+            <a class="mdc-list-item" href="{U_SEARCH_ACTIVE_TOPICS}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">whatshot</i>
+                <span class="mdc-list-item__text">{L_SEARCH_UNREAD}</span>
+            </a>
+            <a class="mdc-list-item" href="{U_SEARCH}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">search</i>
+                <span class="mdc-list-item__text">{L_SEARCH}</span>
+            </a>
+            <!-- ENDIF -->
+
+            <!-- EVENT navbar_header_quick_links_after -->
+
+            <hr class="mdc-list-divider">
+            <h6 class="mdc-list-group__subheader">Forums</h6>
             <a class="mdc-list-item" href="#">
                 <i aria-hidden="true" class="material-icons mdc-list-item__graphic">star</i>
                 <span class="mdc-list-item__text">Star</span>
@@ -40,4 +83,3 @@
     </div>
 </aside>
 <div class="mdc-drawer-scrim"></div>
-
