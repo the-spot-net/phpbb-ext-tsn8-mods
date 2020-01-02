@@ -1,0 +1,42 @@
+/*
+ * Default Base Values for various things
+ */
+$base-text-size: 16px;
+$default-border-width: 1px;
+
+/*
+ * Variable Calculations for Vertical Spacing (padding, margins)
+ */
+$triple-vertical: #{$base-text-size} * 3;
+$double-vertical: #{$base-text-size} * 2;
+$full-vertical: $base-text-size;
+$half-vertical: #{$base-text-size} * 0.5;
+$quarter-vertical: #{$base-text-size} * 0.25;
+
+/*
+ * Variable Calculations for Vertical Spacing with Border subtracted (padding, margins)
+ */
+$triple-vertical-bordered: #{$triple-vertical} - #{$default-border-width};
+$double-vertical-bordered: #{$double-vertical} - #{$default-border-width};
+$full-vertical-bordered: #{$full-vertical} - #{$default-border-width};
+$half-vertical-bordered: #{$half-vertical} - #{$default-border-width};
+$quarter-vertical-bordered: #{$quarter-vertical} - #{$default-border-width};
+
+
+/*
+ * Variable Calculations for side Spacing (padding, margins)
+ */
+$triple-side: #{$base-text-size} * 3;
+$double-side: #{$base-text-size} * 2;
+$full-side: $base-text-size;
+$half-side: #{$base-text-size} * 0.5;
+$quarter-side: #{$base-text-size} * 0.25;
+
+/*
+ * Variable Calculations for side Spacing with Border subtracted (padding, margins)
+ */
+$triple-side-bordered: #{$triple-side} - #{$default-border-width};
+$double-side-bordered: #{$double-side} - #{$default-border-width};
+$full-side-bordered: #{$full-side} - #{$default-border-width};
+$half-side-bordered: #{$half-side} - #{$default-border-width};
+$quarter-side-bordered: #{$quarter-side} - #{$default-border-width};
