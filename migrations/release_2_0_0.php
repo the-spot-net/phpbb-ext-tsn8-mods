@@ -1,13 +1,13 @@
 <?php
 
-namespace tsn\tsn8\migrations;
+namespace tsn\tsn\migrations;
 
 use phpbb\db\migration\migration;
 
 /**
  * Class release_2_0_0
  * Handles some changes to the database for release 2.0.0
- * @package tsn\tsn8\migrations
+ * @package tsn\tsn\migrations
  */
 class release_2_0_0 extends migration
 {
@@ -16,7 +16,7 @@ class release_2_0_0 extends migration
      */
     static public function depends_on()
     {
-        return ['\tsn\tsn8\migrations\release_1_0_0'];
+        return ['\tsn\tsn\migrations\release_1_0_0'];
     }
 
     /**
@@ -40,12 +40,14 @@ class release_2_0_0 extends migration
             ['config.add', ['tsn_enable_miniforums', 1]],
             ['config.add', ['tsn_enable_miniprofile', 1]],
             ['config.add', ['tsn_enable_specialreport', 1]],
+            ['config.add', ['tsn_specialreport_forumid', 1]],
+            ['config.add', ['tsn_specialreport_excerpt_words', 140]],
             // Remove the old settings
-            ['config.remove', ['tsn8_activate_newposts']],
-            ['config.remove', ['tsn8_activate_myspot_login']],
-            ['config.remove', ['tsn8_activate_mini_forums']],
-            ['config.remove', ['tsn8_activate_mini_profile']],
-            ['config.remove', ['tsn8_activate_special_report']],
+            //            ['config.remove', ['tsn8_activate_newposts']],
+            //            ['config.remove', ['tsn8_activate_myspot_login']],
+            //            ['config.remove', ['tsn8_activate_mini_forums']],
+            //            ['config.remove', ['tsn8_activate_mini_profile']],
+            //            ['config.remove', ['tsn8_activate_special_report']],
         ];
     }
 }

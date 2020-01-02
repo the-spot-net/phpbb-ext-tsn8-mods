@@ -1,18 +1,18 @@
 services:
-    tsn.tsn8.controller:
-        class: tsn\tsn8\controller\main
+    tsn.tsn.controller:
+        class: tsn\tsn\controller\main
         arguments:
-            - @auth
-            - @config
-            - @db
-            - @controller.helper
-            - @language
-            - @template
-            - @user
-    tsn.tsn8.listener:
-        class: tsn\tsn8\event\main_listener
+            - '@auth'
+            - '@config'
+            - '@dbal.conn'
+            - '@controller.helper'
+            - '@language'
+            - '@template'
+            - '@user'
+    tsn.tsn.listener:
+        class: tsn\tsn\event\main_listener
         arguments:
-            - @controller.helper
-            - @template
+            - '@controller.helper'
+            - '@template'
         tags:
             - { name: event.listener }

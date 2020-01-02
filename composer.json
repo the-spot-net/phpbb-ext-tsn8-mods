@@ -1,8 +1,8 @@
 {
-	"name": "tsn/tsn8",
+	"name": "tsn/tsn",
 	"type": "phpbb-extension",
-	"description": "Modifications needed to add tsn8 features",
-	"homepage": "https://github.com/the-spot-net/phpbb-ext-tsn8-mods",
+	"description": "Modifications needed to add tsn features",
+	"homepage": "https://github.com/the-spot-net/phpbb-ext-tsn-mods",
 	"version": "2.0.0",
 	"time": "2019-12-30",
 	"license": "GPL-2.0",
@@ -21,7 +21,7 @@
 		"phpbb/epv": "dev-master"
 	},
 	"extra": {
-		"display-name": "tsn8 Modifications",
+		"display-name": "tsn Modifications",
 		"soft-require": {
 			"phpbb/phpbb": ">=3.2.8"
 		}

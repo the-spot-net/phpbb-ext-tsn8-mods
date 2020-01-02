@@ -1,3 +1,19 @@
-#tsn_tsn8_controller:
-#    path: /tsn/{name}
-#    defaults: { _controller: tsn.tsn8.controller:handle }
+tsn_tsn_controller:
+    pattern: /tsn/{name}
+    defaults: { _controller: tsn.tsn.controller:handle, name: "index" }
+
+#acme_blog_home:
+#    path: /blog
+#    defaults: { _controller: acme.blog.controller:handle }
+#
+#acme_blog_entry:
+#    path: /blog/{id}
+#    defaults: { _controller: acme.blog.controller:handle }
+#    requirements:
+#        id: \d+
+#
+#acme_blog_edit:
+#    path: /blog/{id}/edit
+#    defaults: { _controller: acme.blog.controller:handle }
+#    requirements:
+#        id: \d+

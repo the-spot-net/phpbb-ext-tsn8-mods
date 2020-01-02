@@ -1,10 +1,10 @@
 <?php
 
-namespace tsn\tsn8\acp;
+namespace tsn\tsn\acp;
 
 /**
  * Class main_module
- * @package tsn\tsn8\acp
+ * @package tsn\tsn\acp
  */
 class main_module
 {
@@ -16,34 +16,41 @@ class main_module
      */
     public function main($id, $mode)
     {
-        global $user, $template, $request, $config;
+        global $user, $template, $language, $request, $config;
 
-        $user->add_lang('acp/common');
+        $language->add_lang('acp/common');
         $this->tpl_name = 'acp_settings';
         $this->page_title = $user->lang('TSN_EXTENSION_TITLE');
-        add_form_key('tsn/tsn8');
+        add_form_key('tsn/tsn');
 
         if ($request->is_set_post('submit')) {
-            if (!check_form_key('tsn/tsn8')) {
+            if (!check_form_key('tsn/tsn')) {
                 trigger_error('FORM_INVALID');
             }
 
-            $config->set('tsn8_activate_newposts', $request->variable('tsn8_activate_newposts', 1));
-            $config->set('tsn8_activate_myspot_login', $request->variable('tsn8_activate_myspot_login', 1));
-            $config->set('tsn8_activate_mini_forums', $request->variable('tsn8_activate_mini_forums', 1));
-            $config->set('tsn8_activate_mini_profile', $request->variable('tsn8_activate_mini_profile', 1));
-            $config->set('tsn8_activate_special_report', $request->variable('tsn8_activate_special_report', 1));
+            $config->set('tsn_enable_extension', $request->variable('tsn_enable_extension', 1));
+            $config->set('tsn_enable_myspot', $request->variable('tsn_enable_myspot', 1));
+            $config->set('tsn_enable_miniprofile', $request->variable('tsn_enable_miniprofile', 1));
+            $config->set('tsn_enable_miniforums', $request->variable('tsn_enable_miniforums', 1));
+            $config->set('tsn_enable_newposts', $request->variable('tsn_enable_newposts', 1));
+            $config->set('tsn_enable_specialreport', $request->variable('tsn_enable_specialreport', 1));
+            $config->set('tsn_specialreport_forumid', $request->variable('tsn_specialreport_forumid', 1));
+            $config->set('tsn_specialreport_excerpt_words', $request->variable('tsn_specialreport_excerpt_words', 140));
 
             trigger_error($user->lang('TSN_SETTINGS_SAVED') . adm_back_link($this->u_action));
         }
 
         $template->assign_vars([
-            'U_ACTION'                     => $this->u_action,
-            'TSN8_ACTIVATE_NEW_POSTS'      => $config['tsn8_activate_newposts'],
-            'TSN8_ACTIVATE_MYSPOT_LOGIN'   => $config['tsn8_activate_myspot_login'],
-            'TSN8_ACTIVATE_MINI_PROFILE'   => $config['tsn8_activate_mini_profile'],
-            'TSN8_ACTIVATE_MINI_FORUMS'    => $config['tsn8_activate_mini_forums'],
-            'TSN8_ACTIVATE_SPECIAL_REPORT' => $config['tsn8_activate_special_report'],
+            'U_ACTION'                      => $this->u_action,
+            'TSN_ENABLE_EXTENSION'          => $config['tsn_enable_extension'],
+            'TSN_ENABLE_MYSPOT'             => $config['tsn_enable_myspot'],
+            'TSN_ENABLE_MINIPROFILE'        => $config['tsn_enable_miniprofile'],
+            'TSN_ENABLE_MINIFORUMS'         => $config['tsn_enable_miniforums'],
+            'TSN_ENABLE_NEWPOSTS'           => $config['tsn_enable_newposts'],
+            'TSN_ENABLE_SPECIALREPORT'      => $config['tsn_enable_specialreport'],
+            'V_TSN_SPECIALREPORT_FORUMID'   => $config['tsn_specialreport_forumid'],
+            'V_TSN_SPECIALREPORT_WORDCOUNT' => $config['tsn_specialreport_excerpt_words'],
+
         ]);
     }
 }
