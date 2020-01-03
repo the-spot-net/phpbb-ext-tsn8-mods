@@ -1,4 +1,18 @@
 .tsn-header-logo {
-  width: $triple-side;
+  min-width: $triple-side;
   height: $triple-vertical;
+}
+
+.drawer-avatar-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+
+  img {
+    width: 30%;
+  }
+}
+
+.drawer-header-wrapper {
+  display: inline-block;
+  width: 68%;
 }
