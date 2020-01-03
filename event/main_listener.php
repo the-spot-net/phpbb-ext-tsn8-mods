@@ -203,30 +203,29 @@ class main_listener implements EventSubscriberInterface
 //        $event['template_vars'] = $template_vars;
 //    }
 
-//    /** Modify the View Profile data
-//     *
-//     * @param $event
-//     */
-//    public function modify_memberlist_profile_data($event)
-//    {
-//        // Initialization
-//        $member = $event['member'];
-//
-//        // Get the avatar's source path
-//        preg_match_all('/src="\.(.+?)"/', $this->get_avatar($member), $avatar_data);
-//
-//        // Prepare the url for exif capture
-//        $avatar_path = array_shift($avatar_data[1]);
-//        $avatar_path = (strstr($avatar_path,
-//                '/http/') === false) ? 'https://the-spot.net/phorums' . $avatar_path : $avatar_path;
-//
-//        $exif_imagetype = @exif_imagetype($avatar_path);
-//
-//        $color = $this->get_dominant_color_from_image($avatar_path, $exif_imagetype);
-//
-//        $member['background_color'] = $color;
-//        $event['member'] = $member;
-//    }
+    /** Modify the View Profile data
+     *
+     * @param $event
+     */
+    public function modify_memberlist_profile_data($event)
+    {
+        // Initialization
+        $member = $event['member'];
+
+        // Get the avatar's source path
+        preg_match_all('/src="\.(.+?)"/', $this->get_avatar($member), $avatar_data);
+
+        // Prepare the url for exif capture
+        $avatar_path = array_shift($avatar_data[1]);
+        $avatar_path = (strstr($avatar_path, '/http/') === false) ? 'https://the-spot.net/phorums' . $avatar_path : $avatar_path;
+
+        $exif_imagetype = @exif_imagetype($avatar_path);
+
+        $color = $this->get_dominant_color_from_image($avatar_path, $exif_imagetype);
+
+        $member['background_color'] = $color;
+        $event['member'] = $member;
+    }
 //
 //    /**
 //     * Insert the New Posts template data for My Spot "New Posts" module
@@ -322,18 +321,18 @@ class main_listener implements EventSubscriberInterface
 //        ]);
 //    }
 //
-//    /**
-//     * Removes all the directory traversal from the extension directory
-//     * to match the forum root directory
-//     *
-//     * @param string $avatar_html Avatar HTML string
-//     *
-//     * @return string Avatar HTML String with image from phpbb root
-//     */
-//    private function collapse_avatar_path($avatar_html)
-//    {
-//        return preg_replace('/(\.\.\/)+?/', './', $avatar_html);
-//    }
+    /**
+     * Removes all the directory traversal from the extension directory
+     * to match the forum root directory
+     *
+     * @param string $avatar_html Avatar HTML string
+     *
+     * @return string Avatar HTML String with image from phpbb root
+     */
+    private function collapse_avatar_path($avatar_html)
+    {
+        return preg_replace('/(\.\.\/)+?/', './', $avatar_html);
+    }
 //
 //    /**
 //     * Replace all whitespace characters with a single space.
@@ -347,140 +346,140 @@ class main_listener implements EventSubscriberInterface
 //        return preg_replace('/\s+?/', ' ', $text);
 //    }
 //
-//    /**
-//     * Prepare the dimensions of the avatar, then pass the data to the phpbb avatar function
-//     *
-//     * @param array  $row   Database row containing the avatar data
-//     * @param float  $scale Factor to scale the avatar up (>1) or down (<1)
-//     * @param string $alt   Alt Text for the avatar image
-//     *
-//     * @return string HTML of the avatar image
-//     */
-//    private function get_avatar($row, $scale = 1.0, $alt = 'USER_AVATAR')
-//    {
+    /**
+     * Prepare the dimensions of the avatar, then pass the data to the phpbb avatar function
+     *
+     * @param array  $row   Database row containing the avatar data
+     * @param float  $scale Factor to scale the avatar up (>1) or down (<1)
+     * @param string $alt   Alt Text for the avatar image
+     *
+     * @return string HTML of the avatar image
+     */
+    private function get_avatar($row, $scale = 1.0, $alt = 'USER_AVATAR')
+    {
 //        global $phpbb_root_path, $phpEx;
-//
+
 //        include_once($phpbb_root_path . 'includes/functions.' . $phpEx);
-//
-//        // Calculate the results of scaling...
-//        $temp_scaled_width = (float)$row['user_avatar_width'] * $scale;
-//        $temp_scaled_height = (float)$row['user_avatar_height'] * $scale;
-//
-//        // Avatars are assumed to be 100px by 100px
-//        $control_scaled_side = (float)100 * $scale;
-//
-//        if ($temp_scaled_height && $temp_scaled_width) {
-//
-//            // Will scaling it cause one side to be bigger than the control?
-//            $isScaledTooBig = ($temp_scaled_height > $control_scaled_side || $temp_scaled_width > $control_scaled_side);
-//            // Will scaling it cause both sides to be smaller than the control?
-//            $isScaledTooSmall = ($temp_scaled_height < $control_scaled_side && $temp_scaled_width < $control_scaled_side);
-//
-//            // The scaled dimensions are insufficient and need to be further scaled to a control...
-//            if ($isScaledTooBig || $isScaledTooSmall) {
-//                // If the width is largest, max it at the control width,
-//                // and scale the height to match...
-//                if ($temp_scaled_width >= $temp_scaled_height) {
-//                    $scaled_width = $control_scaled_side;
-//                    $scaled_height = ($temp_scaled_height * $control_scaled_side) / $temp_scaled_width;
-//                } else {
-//                    // Height is largest, scale on the width to match
-//                    $scaled_height = $control_scaled_side;
-//                    $scaled_width = ($temp_scaled_width * $control_scaled_side) / $temp_scaled_height;
-//                }
-//            } else {
-//                // Scaling resulted in sufficient dimensions, use them
-//                $scaled_width = $temp_scaled_width;
-//                $scaled_height = $temp_scaled_height;
-//            }
-//
-//            $avatar_info = [
-//                'avatar_type'   => $row['user_avatar_type'],
-//                'avatar'        => $row['user_avatar'],
-//                'avatar_height' => $scaled_height,
-//                'avatar_width'  => $scaled_width,
-//            ];
-//        } else {
-//            $avatar_info = [
-//                'avatar_type'   => 'avatar.driver.local',
-//                'avatar'        => 'novelties/tsn_icon_avatar.png',
-//                'avatar_height' => $control_scaled_side,
-//                'avatar_width'  => $control_scaled_side,
-//            ];
-//        }
-//
-//        $avatar_info['avatar_title'] = (!empty($row['username'])) ? $row['username'] : '';
-//
-//        return $this->collapse_avatar_path(phpbb_get_avatar($avatar_info, $alt, false));
-//    }
-//
-//    private function get_dominant_color_from_image($source_file, $exif_imagetype)
-//    {
-//        switch ($exif_imagetype) {
-////            case IMAGETYPE_GIF:
-////                $im = imagecreatefromgif($source_file);
-////                break;
-//            case IMAGETYPE_JPEG:
-//                $im = imagecreatefromjpeg($source_file);
+
+        // Calculate the results of scaling...
+        $temp_scaled_width = (float)$row['user_avatar_width'] * $scale;
+        $temp_scaled_height = (float)$row['user_avatar_height'] * $scale;
+
+        // Avatars are assumed to be 100px by 100px
+        $control_scaled_side = (float)100 * $scale;
+
+        if ($temp_scaled_height && $temp_scaled_width) {
+
+            // Will scaling it cause one side to be bigger than the control?
+            $isScaledTooBig = ($temp_scaled_height > $control_scaled_side || $temp_scaled_width > $control_scaled_side);
+            // Will scaling it cause both sides to be smaller than the control?
+            $isScaledTooSmall = ($temp_scaled_height < $control_scaled_side && $temp_scaled_width < $control_scaled_side);
+
+            // The scaled dimensions are insufficient and need to be further scaled to a control...
+            if ($isScaledTooBig || $isScaledTooSmall) {
+                // If the width is largest, max it at the control width,
+                // and scale the height to match...
+                if ($temp_scaled_width >= $temp_scaled_height) {
+                    $scaled_width = $control_scaled_side;
+                    $scaled_height = ($temp_scaled_height * $control_scaled_side) / $temp_scaled_width;
+                } else {
+                    // Height is largest, scale on the width to match
+                    $scaled_height = $control_scaled_side;
+                    $scaled_width = ($temp_scaled_width * $control_scaled_side) / $temp_scaled_height;
+                }
+            } else {
+                // Scaling resulted in sufficient dimensions, use them
+                $scaled_width = $temp_scaled_width;
+                $scaled_height = $temp_scaled_height;
+            }
+
+            $avatar_info = [
+                'avatar_type'   => $row['user_avatar_type'],
+                'avatar'        => $row['user_avatar'],
+                'avatar_height' => $scaled_height,
+                'avatar_width'  => $scaled_width,
+            ];
+        } else {
+            $avatar_info = [
+                'avatar_type'   => 'avatar.driver.local',
+                'avatar'        => 'novelties/tsn_icon_avatar.png',
+                'avatar_height' => $control_scaled_side,
+                'avatar_width'  => $control_scaled_side,
+            ];
+        }
+
+        $avatar_info['avatar_title'] = (!empty($row['username'])) ? $row['username'] : '';
+
+        return $this->collapse_avatar_path(phpbb_get_avatar($avatar_info, $alt, false));
+    }
+
+    private function get_dominant_color_from_image($source_file, $exif_imagetype)
+    {
+        switch ($exif_imagetype) {
+//            case IMAGETYPE_GIF:
+//                $im = imagecreatefromgif($source_file);
 //                break;
-//            case IMAGETYPE_PNG:
-//                $im = imagecreatefrompng($source_file);
-//                break;
-//            default:
-//                $im = null;
-//                break;
-//        }
-//
-//        // False if error, null if unsupported
-//        if ($im) {
-//            $imgw = imagesx($im);
-//            $imgh = imagesy($im);
-//
-//            $rgb_colors = $rgb_counts = [];
-//            for ($i = 0; $i < $imgw; $i++) {
-//                for ($j = 0; $j < $imgh; $j++) {
-//
-//                    // get the rgb value for current pixel
-//                    $rgb = ImageColorAt($im, $i, $j);
-//
-//                    // extract each value for r, g, b
-//                    $r = ($rgb >> 16) & 0xFF;
-//                    $g = ($rgb >> 8) & 0xFF;
-//                    $b = $rgb & 0xFF;
-//
-//                    $key = $r . '_' . $g . '_' . $b;
-//
-//                    if (!isset($rgb_counts[$key])) {
-//                        $rgb_counts[$key] = 0;
-//                        $rgb_colors[$key] = '';
-//                    }
-//
-//                    $rgb_counts[$key]++;
-//                    $rgb_colors[$key] = $key;
-//                }
-//            }
-//
-//            // Sort by rgb count, biggest to smallest
-//            arsort($rgb_counts);
-//
-//            // Ditch the white color
-//            unset($rgb_counts['255_255_255'], $rgb_colors['255_255_255']);
-//            unset($rgb_counts['0_0_0'], $rgb_colors['0_0_0']);
-//            // Slice off the 2nd most abundant color
-//            $max_color = array_slice($rgb_counts, 0, 1);
-//            // Flip to make the rgb key into the value
-//            $max_color = array_flip($max_color);
-//            // Extract that rgb value
-//            $rgb = array_shift($max_color);
-//
-//            // create the rgb CSS color
-//            $color = 'rgb(' . str_replace('_', ', ', $rgb_colors[$rgb]) . ')';
-//        } else {
-//            $color = '#003366';
-//        }
-//
-//        return $color;
-//    }
+            case IMAGETYPE_JPEG:
+                $im = imagecreatefromjpeg($source_file);
+                break;
+            case IMAGETYPE_PNG:
+                $im = imagecreatefrompng($source_file);
+                break;
+            default:
+                $im = null;
+                break;
+        }
+
+        // False if error, null if unsupported
+        if ($im) {
+            $imgw = imagesx($im);
+            $imgh = imagesy($im);
+
+            $rgb_colors = $rgb_counts = [];
+            for ($i = 0; $i < $imgw; $i++) {
+                for ($j = 0; $j < $imgh; $j++) {
+
+                    // get the rgb value for current pixel
+                    $rgb = ImageColorAt($im, $i, $j);
+
+                    // extract each value for r, g, b
+                    $r = ($rgb >> 16) & 0xFF;
+                    $g = ($rgb >> 8) & 0xFF;
+                    $b = $rgb & 0xFF;
+
+                    $key = $r . '_' . $g . '_' . $b;
+
+                    if (!isset($rgb_counts[$key])) {
+                        $rgb_counts[$key] = 0;
+                        $rgb_colors[$key] = '';
+                    }
+
+                    $rgb_counts[$key]++;
+                    $rgb_colors[$key] = $key;
+                }
+            }
+
+            // Sort by rgb count, biggest to smallest
+            arsort($rgb_counts);
+
+            // Ditch the white color
+            unset($rgb_counts['255_255_255'], $rgb_colors['255_255_255']);
+            unset($rgb_counts['0_0_0'], $rgb_colors['0_0_0']);
+            // Slice off the 2nd most abundant color
+            $max_color = array_slice($rgb_counts, 0, 1);
+            // Flip to make the rgb key into the value
+            $max_color = array_flip($max_color);
+            // Extract that rgb value
+            $rgb = array_shift($max_color);
+
+            // create the rgb CSS color
+            $color = 'rgb(' . str_replace('_', ', ', $rgb_colors[$rgb]) . ')';
+        } else {
+            $color = '#003366';
+        }
+
+        return $color;
+    }
 //
 //    /**
 //     * Excerpt whole words from a body of text

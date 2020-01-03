@@ -15,45 +15,20 @@ namespace tsn\tsn\controller;
  */
 class constants
 {
-    // URL Stubs
-    const ROUTE_MY_SPOT = 'my-spot';
-    const ROUTE_SPECIAL_REPORT = 'special-report';
+    // URI Route Directories
+    const ROUTE_TSN = '/tsn';
+    const ROUTE_AJAX = self::ROUTE_TSN . '/ajax';
 
-    // URL Paths to be appended to $boardUrl
-    const URL_EXT_DIR = 'tsn/';
-    const URL_MY_SPOT = self::URL_EXT_DIR . self::ROUTE_MY_SPOT;
-    const URL_SPECIAL_REPORT = self::URL_EXT_DIR . self::ROUTE_SPECIAL_REPORT;
+    // URI Base Routes
+    const ROUTE_FORUM = self::ROUTE_TSN . '/forum';
+    const ROUTE_GROUP = self::ROUTE_TSN . '/group';
+    const ROUTE_MEMBER = self::ROUTE_TSN . '/member';
+    const ROUTE_TOPIC = self::ROUTE_TSN . '/topic';
+    const ROUTE_USER = self::ROUTE_TSN . '/user';
 
-    // Database Values
-    const FORUM_SPECIAL_REPORT_ID = 14;
+    // AJAX Slugs for use in switch & routes
+    const SLUG_SPECIAL_REPORT = 'special-report';
 
-    // Query Replacement Tokens
-    const TOKEN_FORUM_ID = '{FORUM_ID}';
-    const TOKEN_TOPIC_ID = '{TOPIC_ID}';
-    const TOKEN_USER_ID = '{USER_ID}';
-
-    // SQL Queries
-    const SQL_SPECIAL_REPORT_NEWEST_TOPIC = 'SELECT MAX(topic_id) AS topic_id FROM ' . TOPICS_TABLE . ' WHERE forum_id = ' . self::TOKEN_FORUM_ID;
-    const SQL_SPECIAL_REPORT_FIRST_POST_DETAILS = 'SELECT t.topic_id, t.topic_title, t.topic_views, t.topic_posts_approved, t.topic_time, t.topic_poster, p.enable_smilies, p.post_id, p.post_text, p.bbcode_uid, p.bbcode_bitfield, u.username, u.user_colour 
-        FROM ' . TOPICS_TABLE . ' t  
-        LEFT JOIN ' . POSTS_TABLE . ' p ON (t.topic_id = p.topic_id AND t.topic_first_post_id = p.post_id)
-        LEFT JOIN ' . USERS_TABLE . ' u ON (t.topic_poster = u.user_id)
-        WHERE t.forum_id = ' . self::TOKEN_FORUM_ID . ' 
-            AND t.topic_id = ' . self::TOKEN_TOPIC_ID;
-
-    const SQL_SPECIAL_REPORT_UNREAD_STATUS = 'SELECT t.*, f.forum_id, f.forum_name, tp.topic_posted, tt.mark_time, ft.mark_time AS f_mark_time, u.username, u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height, p.post_text, p.bbcode_uid, p.bbcode_bitfield 
-    FROM ' . POSTS_TABLE . ' p, ' . TOPICS_TABLE . ' t 
-    LEFT JOIN ' . FORUMS_TABLE . ' f ON (f.forum_id = t.forum_id) 
-    LEFT JOIN ' . TOPICS_POSTED_TABLE . ' tp ON (tp.user_id = ' . self::TOKEN_USER_ID . ' AND t.topic_id = tp.topic_id) 
-    LEFT JOIN ' . TOPICS_TRACK_TABLE . ' tt ON (tt.user_id = ' . self::TOKEN_USER_ID . ' AND t.topic_id = tt.topic_id) 
-    LEFT JOIN ' . FORUMS_TRACK_TABLE . ' ft ON (ft.user_id = ' . self::TOKEN_USER_ID . ' AND ft.forum_id = f.forum_id) 
-    LEFT JOIN ' . USERS_TABLE . ' u ON (u.user_id = t.topic_last_poster_id) 
-    WHERE t.topic_id = ' . self::TOKEN_TOPIC_ID . ' 
-    AND f.forum_id = ' . self::TOKEN_FORUM_ID . ' 
-    AND t.forum_id = ' . self::TOKEN_FORUM_ID . ' 
-    AND t.topic_visibility = 1 
-    AND p.post_id = t.topic_last_post_id 
-    ORDER BY t.topic_last_post_time DESC';
-
-    const SQL_USER_AVATAR = 'SELECT u.user_avatar, u.user_avatar_type, u.user_avatar_width, u.user_avatar_height FROM ' . USERS_TABLE . ' u WHERE u.user_id = ' . self::TOKEN_USER_ID;
+    // URI AJAX Routes
+    const ROUTE_AJAX_SPECIAL_REPORT = self::ROUTE_AJAX . '/' . self::SLUG_SPECIAL_REPORT;
 }

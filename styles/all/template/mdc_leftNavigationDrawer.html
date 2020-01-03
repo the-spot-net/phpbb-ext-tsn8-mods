@@ -1,7 +1,14 @@
 <aside class="mdc-drawer mdc-drawer--modal mdc-top-app-bar--fixed-adjust">
     <div class="mdc-drawer__header">
-        <h3 class="mdc-drawer__title">Mail</h3>
-        <h6 class="mdc-drawer__subtitle">email@material.io</h6>
+        <span class="drawer-avatar-wrapper">
+            {AVATAR_IMG}
+        </span>
+        <span class="drawer-header-wrapper">
+            <h3 class="mdc-drawer__title">{USERNAME}</h3>
+            <h6 class="mdc-drawer__subtitle">
+                <!-- IF RANK_TITLE -->{RANK_TITLE}<!-- ENDIF -->
+            </h6>
+        </span>
     </div>
     <div class="mdc-drawer__content">
         <nav class="mdc-list">
