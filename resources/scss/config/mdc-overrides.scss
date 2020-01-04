@@ -1,8 +1,21 @@
-// only apply this style if below top app bar
+// Styles for the Top App Bar
 .mdc-top-app-bar {
   z-index: 7;
 }
 
+// Styles for the left drawer
+.mdc-drawer {
+  @include mdc-drawer-divider-color($mdc-theme-primary);
+  @include mdc-drawer-surface-fill-color($white);
+
+  //.mdc-drawer__title {
+  //  margin-bottom: 0;
+  //}
+}
+
+/*
+ * Styles for the Content of the page
+ */
 .main-content {
   overflow: auto;
   height: 100%;
@@ -18,13 +31,8 @@
   }
 }
 
-.mdc-drawer {
-  @include mdc-drawer-divider-color($mdc-theme-primary);
-  @include mdc-drawer-surface-fill-color($white);
-
-  .mdc-drawer-app-content {
-    flex: auto;
-    overflow: auto;
-    position: relative;
-  }
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
 }
