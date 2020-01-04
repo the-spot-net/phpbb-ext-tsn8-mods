@@ -1,18 +1,44 @@
 <aside class="mdc-drawer mdc-drawer--modal mdc-top-app-bar--fixed-adjust mdc-theme--surface mdc-theme--on-surface">
     <div class="mdc-drawer__header">
-        <div class="drawer-avatar-wrapper">
-            {AVATAR_IMG}
+        <!-- IF S_USER_LOGGED_IN -->
+        <div class="grid-x">
+            <div class="cell shrink">
+                {AVATAR_IMG}
+            </div>
+            <div class="cell auto">
+                <span class="mdc-drawer__title mdc-typography--headline6 ">{USERNAME}</span>
+                <span class="mdc-drawer__subtitle mdc-typography--body2"><!-- IF RANK_TITLE -->{RANK_TITLE}<!-- ENDIF --></span>
+            </div>
         </div>
-        <div class="drawer-header-wrapper">
-            <h3 class="mdc-drawer__title">{USERNAME}</h3>
-            <h6 class="mdc-drawer__subtitle">
-                <!-- IF RANK_TITLE -->{RANK_TITLE}<!-- ENDIF -->
-            </h6>
+        <!-- ELSE -->
+        <img alt="site logo" class="tsn-drawer-logo" src="{T_EXT_PATH}/images/tsn-13.png">
+        <span class="mdc-drawer__title mdc-typography--headline6">{L_WELCOME_VISITOR}</span>
+        <span class="mdc-drawer__subtitle mdc-typography--body2">{L_JOIN_THE_DISCUSSION}</span>
+        <div class="grid-x grid-margin-x grid-padding-y">
+            <div class="cell shrink">
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch mdc-button--raised">
+                        <div class="mdc-button__ripple"></div>
+                        <span class="mdc-button__label">Sign In</span>
+                        <div class="mdc-button__touch"></div>
+                    </button>
+                </div>
+            </div>
+            <div class="cell shrink">
+                <div class="mdc-touch-target-wrapper">
+                    <button class="mdc-button mdc-button--touch mdc-button--outlined">
+                        <div class="mdc-button__ripple"></div>
+                        <span class="mdc-button__label">Register</span>
+                        <div class="mdc-button__touch"></div>
+                    </button>
+                </div>
+            </div>
         </div>
+        <!-- ENDIF -->
     </div>
+    <hr class="mdc-list-divider">
     <nav class="mdc-drawer__content">
         <div class="mdc-list">
-
             <!-- EVENT navbar_header_quick_links_before -->
 
             <a aria-current="page" class="mdc-list-item mdc-list-item--activated" href="{U_TSN_MYSPOT}">
@@ -21,13 +47,6 @@
             </a>
 
             <!-- IF S_DISPLAY_SEARCH -->
-            <!-- IF S_REGISTERED_USER -->
-            <a class="mdc-list-item" href="{U_SEARCH_SELF}">
-                <!-- TODO Inject User Avatar as Icon for this item -->
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">star</i>
-                <span class="mdc-list-item__text">{L_SEARCH_SELF}</span>
-            </a>
-            <!-- ENDIF -->
             <!-- IF S_USER_LOGGED_IN -->
             <a class="mdc-list-item" href="{U_SEARCH_NEW}">
                 <i aria-hidden="true" class="material-icons mdc-list-item__graphic">new_releases</i>
@@ -60,8 +79,8 @@
 
             <!-- BEGIN forumrow -->
             <!-- IF forumrow.S_IS_CAT -->
-            <h6 class="mdc-list-group__subheader">{forumrow.FORUM_NAME}</h6>
             <hr class="mdc-list-divider">
+            <h6 class="mdc-list-group__subheader">{forumrow.FORUM_NAME}</h6>
             <!-- ELSEIF forumrow.S_IS_LINK -->
             <a class="mdc-list-item" href="{forumrow.U_VIEWFORUM}" target="_blank">
                 <!-- IF forumrow.FORUM_IMAGE_SRC -->
