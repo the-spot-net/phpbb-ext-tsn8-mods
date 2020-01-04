@@ -37,10 +37,11 @@ class main_listener implements EventSubscriberInterface
         $this->template = $template;
     }
 
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return [
-            'core.user_setup' => 'load_language_on_setup',
+            'core.user_setup'       => 'load_language_on_setup',
+            'core.get_avatar_after' => 'processUserAvatar',
             //            'core.search_get_topic_data'               => 'fetch_extended_new_post_data',
             //            'core.search_get_active_topic_data'        => 'fetch_extended_active_topic_data',
             //            'core.search_modify_tpl_ary'               => 'template_add_extended_new_post_data',
@@ -54,6 +55,72 @@ class main_listener implements EventSubscriberInterface
             //            'core.memberlist_team_modify_query'         => 'modify_memberlist_team_data',
             //            'core.memberlist_team_modify_template_vars' => 'template_add_memberlist_team_user_avatar',
         ];
+    }
+
+    /**
+     * @used-by \phpbb_get_avatar()
+     *
+     * @param $event
+     *
+     * @throws \Exception
+     */
+    public static function processUserAvatar($event)
+    {
+        /*
+         * Available Fields: 'row', 'alt', 'ignore_config', 'avatar_data', 'html'
+         */
+        global $phpbb_container, $language;
+
+        $row = $event['row'];
+        $alt = $event['alt'];
+        $avatar_data = $event['avatar_data'];
+        $ignore_config = $event['ignore_config'];
+
+        $imgArray = [];
+        // check for remote file...
+        if ($row['avatar_type'] == 'avatar.driver.remote') {
+            // Test for image existence
+            $imgArray = @getimagesize($avatar_data['src']);
+        }
+
+        // If remote doesn't exist, or no avatar for user, get default
+        if (($row['avatar_type'] == 'avatar.driver.remote' && empty($imgArray[0])) || empty($avatar_data['src'])) {
+            // Set default image info; TODO Put this info in the database via extension
+            $row['avatar_type'] = 'avatar.driver.local';
+            $row['avatar'] = 'novelties/tsn_icon_avatar.png';
+            $row['avatar_width'] = $row['avatar_width'] ?: 100;
+            $row['avatar_height'] = $row['avatar_height'] ?: 100;
+
+            // Run through the proper channels again with local file...
+            /* @var $phpbb_avatar_manager \phpbb\avatar\manager */
+            $phpbb_avatar_manager = $phpbb_container->get('avatar.manager');
+
+            if ($driver = $phpbb_avatar_manager->get_driver($row['avatar_type'], $ignore_config)) {
+                $avatar_data = $driver->get_data($row, $ignore_config);
+            } else {
+                $avatar_data['src'] = '';
+            }
+
+            // Set all dimensions to the largest side;
+            // if via tsn8 extension it will have been scaled/resized to the max for the feature
+            // if otherwise, it will be default image size - for avatars that is 100x100
+            $avatar_data['width'] = $avatar_data['height'] = ($row['avatar_width'] >= $row['avatar_height']) ? $row['avatar_width'] : $row['avatar_height'];
+        }
+
+        // Set the title text...
+        $avatar_data['title'] = (!empty($row['avatar_title'])) ? $row['avatar_title'] : '';
+
+        $html = '<img class="avatar" src="' . $avatar_data['src'] . '" ' .
+            ($avatar_data['width'] ? ('width="' . $avatar_data['width'] . '" ') : '') .
+            ($avatar_data['height'] ? ('height="' . $avatar_data['height'] . '" ') : '') .
+            'title="' . (!empty($avatar_data['title']) ? $avatar_data['title'] : '') . '" ' .
+            'alt="' . ($language->lang($alt) ?: $alt) . '" />';
+
+        $event['row'] = $row;
+        $event['alt'] = $alt;
+        $event['avatar_data'] = $avatar_data;
+        $event['ignore_config'] = $ignore_config;
+        $event['html'] = $html;
     }
 
 //    public function fetch_extended_active_topic_data($event)
