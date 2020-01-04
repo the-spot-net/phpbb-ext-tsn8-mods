@@ -1,17 +1,17 @@
-<aside class="mdc-drawer mdc-drawer--modal mdc-top-app-bar--fixed-adjust">
+<aside class="mdc-drawer mdc-drawer--modal mdc-top-app-bar--fixed-adjust mdc-theme--surface mdc-theme--on-surface">
     <div class="mdc-drawer__header">
-        <span class="drawer-avatar-wrapper">
+        <div class="drawer-avatar-wrapper">
             {AVATAR_IMG}
-        </span>
-        <span class="drawer-header-wrapper">
+        </div>
+        <div class="drawer-header-wrapper">
             <h3 class="mdc-drawer__title">{USERNAME}</h3>
             <h6 class="mdc-drawer__subtitle">
                 <!-- IF RANK_TITLE -->{RANK_TITLE}<!-- ENDIF -->
             </h6>
-        </span>
+        </div>
     </div>
-    <div class="mdc-drawer__content">
-        <nav class="mdc-list">
+    <nav class="mdc-drawer__content">
+        <div class="mdc-list">
 
             <!-- EVENT navbar_header_quick_links_before -->
 
@@ -21,7 +21,6 @@
             </a>
 
             <!-- IF S_DISPLAY_SEARCH -->
-            <h6 class="mdc-list-group__subheader">Quick Search</h6>
             <!-- IF S_REGISTERED_USER -->
             <a class="mdc-list-item" href="{U_SEARCH_SELF}">
                 <!-- TODO Inject User Avatar as Icon for this item -->
@@ -47,7 +46,7 @@
             </a>
             <a class="mdc-list-item" href="{U_SEARCH_ACTIVE_TOPICS}">
                 <i aria-hidden="true" class="material-icons mdc-list-item__graphic">whatshot</i>
-                <span class="mdc-list-item__text">{L_SEARCH_UNREAD}</span>
+                <span class="mdc-list-item__text">{L_SEARCH_ACTIVE_TOPICS}</span>
             </a>
             <a class="mdc-list-item" href="{U_SEARCH}">
                 <i aria-hidden="true" class="material-icons mdc-list-item__graphic">search</i>
@@ -56,37 +55,32 @@
             <!-- ENDIF -->
 
             <!-- EVENT navbar_header_quick_links_after -->
+        </div>
+        <div class="mdc-list">
 
+            <!-- BEGIN forumrow -->
+            <!-- IF forumrow.S_IS_CAT -->
+            <h6 class="mdc-list-group__subheader">{forumrow.FORUM_NAME}</h6>
             <hr class="mdc-list-divider">
-            <h6 class="mdc-list-group__subheader">Forums</h6>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">star</i>
-                <span class="mdc-list-item__text">Star</span>
+            <!-- ELSEIF forumrow.S_IS_LINK -->
+            <a class="mdc-list-item" href="{forumrow.U_VIEWFORUM}" target="_blank">
+                <!-- IF forumrow.FORUM_IMAGE_SRC -->
+                <img alt="{FORUM_FOLDER_IMG_ALT}" class="mdc-list-item__graphic tsn-navigation-image" src="{forumrow.FORUM_IMAGE_SRC}"/>
+                <!-- ENDIF -->
+                <span class="mdc-list-item__text">{forumrow.FORUM_NAME}</span>
+                <i aria-hidden="true" class="material-icons mdc-list-item__meta">open_in_new</i>
             </a>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">send</i>
-                <span class="mdc-list-item__text">Sent Mail</span>
+            <!-- ELSE -->
+            <!-- IF forumrow.S_NO_CAT -->{L_FORUMS}<!-- ENDIF -->
+            <a class="mdc-list-item" href="{forumrow.U_VIEWFORUM}">
+                <i aria-hidden="true" class="material-icons mdc-list-item__graphic"><!-- IF forumrow.S_UNREAD_FORUM -->fiber_new<!-- ENDIF --></i>
+                <span class="mdc-list-item__text">{forumrow.FORUM_NAME}</span>
             </a>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">drafts</i>
-                <span class="mdc-list-item__text">Drafts</span>
-            </a>
-
-            <hr class="mdc-list-divider">
-            <h6 class="mdc-list-group__subheader">Labels</h6>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">bookmark</i>
-                <span class="mdc-list-item__text">Family</span>
-            </a>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">bookmark</i>
-                <span class="mdc-list-item__text">Friends</span>
-            </a>
-            <a class="mdc-list-item" href="#">
-                <i aria-hidden="true" class="material-icons mdc-list-item__graphic">bookmark</i>
-                <span class="mdc-list-item__text">Work</span>
-            </a>
-        </nav>
-    </div>
+            <!-- ENDIF -->
+            <!-- BEGINELSE -->
+            {L_NO_FORUMS}
+            <!-- END forumrow -->
+        </div>
+    </nav>
 </aside>
 <div class="mdc-drawer-scrim"></div>
