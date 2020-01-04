@@ -1,23 +1,27 @@
 .tsn-header-logo {
-  min-width: $triple-side;
+  width: $triple-side;
   height: $triple-vertical;
+  margin-right: $full-side;
 }
 
-.tsn-navigation-image {
-  min-width: $double-side;
-  height: $double-vertical;
-}
+.mdc-drawer {
+  .mdc-drawer__header {
 
-.drawer-avatar-wrapper {
-  display: inline-block;
-  vertical-align: middle;
+    .tsn-drawer-logo {
+      width: $triple-side;
+      height: $triple-side;
+      margin-top: #{$double-vertical} + #{$half-vertical};
+    }
 
-  img {
-    width: 30%;
+    .avatar {
+      width: $triple-side;
+      height: $triple-side;
+      margin: $full-vertical $full-side $full-vertical 0;
+    }
   }
-}
 
-.drawer-header-wrapper {
-  display: inline-block;
-  width: 68%;
+  .tsn-navigation-image {
+    min-width: $double-side;
+    height: $double-vertical;
+  }
 }
