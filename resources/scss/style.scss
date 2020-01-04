@@ -1,9 +1,14 @@
 // Import the tsn variable assignments
 @import "config/vars";
+// Import the mdc variable assignments,
 @import "config/mdc-settings";
+// then the included scss files,
 @import "config/mdc-includes";
+// then the overridden style property assignments
 @import "config/mdc-overrides";
 
+// Then include the tsn extension scss files,
+// wrapped in an ID tag so they override anything from external templates
 #tsn {
   @import "tsn/core";
   @import "tsn/assets";
