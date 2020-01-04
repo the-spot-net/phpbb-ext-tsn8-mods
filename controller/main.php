@@ -2,6 +2,7 @@
 
 namespace tsn\tsn\controller;
 
+use p_master;
 use phpbb\auth\auth;
 use phpbb\config\config;
 use phpbb\controller\helper;
@@ -156,10 +157,11 @@ class main
 
         // Setup constant shell data...
         $this->moduleMiniForums();
+        $this->moduleMiniProfile();
     }
 
     /**
-     * Run the work to generate the profile fields
+     * Run the work to generate the user's forum state & data
      */
     private function moduleMiniForums()
     {
@@ -199,6 +201,76 @@ class main
                 ? append_sid(self::$phpbbRootPath . 'mcp.' . self::$phpEx, 'i=main&amp;mode=front', true, $this->user->session_id)
                 : '',
         ]);
+    }
+
+    /**
+     * Run the work to generate the user's profile data
+     */
+    private function moduleMiniProfile()
+    {
+        if ($this->user->data['is_registered']
+            && $this->user->data['user_id'] != ANONYMOUS
+            && $this->user->data['username']
+        ) {
+
+            $this->submoduleSetUserOnlineTime();
+
+            if (!class_exists('p_master')) {
+                include_once('includes/functions_module.' . self::$phpEx);
+            }
+
+            $module = new p_master();
+            $module->list_modules('ucp');
+            $module->list_modules('mcp');
+
+            // This is where name, rank and avatar come from...as well as warnings and user notes
+            $this->template->assign_vars(phpbb_show_profile($this->user->data, $module->loaded('mcp_notes', 'user_notes'), $module->loaded('mcp_warn', 'warn_user')));
+            unset($module);
+
+            // Run the calculations for posts/day & post percent
+            $posts_per_day = $this->user->data['user_posts'] / max(1, round((time() - $this->user->data['user_regdate']) / 86400));
+            $percentage = ($this->config['num_posts']) ? min(100, ($this->user->data['user_posts'] / $this->config['num_posts']) * 100) : 0;
+
+            $this->template->assign_vars([
+                'POSTS_DAY'     => $this->language->lang('POST_DAY', $posts_per_day),
+                'POSTS_PCT'     => $this->language->lang('POST_PCT', $percentage),
+                'POSTS_DAY_NUM' => number_format($posts_per_day, 2),
+                'POSTS_PCT_NUM' => number_format($percentage, 2),
+
+                'U_USER_ADMIN' => ($this->auth->acl_get('a_user'))
+                    ? append_sid(self::$phpbbRootPath . 'index.' . self::$phpEx, 'i=users&amp;mode=overview&amp;u=' . $this->user->data['user_id'], true, $this->user->session_id)
+                    : '',
+            ]);
+
+            // Inactive reason/account?
+            if ($this->user->data['user_type'] == USER_INACTIVE) {
+
+                $this->language->add_lang('acp/common');
+
+                switch ($this->user->data['user_inactive_reason']) {
+                    case INACTIVE_REGISTER:
+                        $inactive_reason = $this->language->lang('INACTIVE_REASON_REGISTER');
+                        break;
+                    case INACTIVE_PROFILE:
+                        $inactive_reason = $this->language->lang('INACTIVE_REASON_PROFILE');
+                        break;
+                    case INACTIVE_MANUAL:
+                        $inactive_reason = $this->language->lang('INACTIVE_REASON_MANUAL');
+                        break;
+                    case INACTIVE_REMIND:
+                        $inactive_reason = $this->language->lang('INACTIVE_REASON_REMIND');
+                        break;
+                    default:
+                        $inactive_reason = $this->language->lang('INACTIVE_REASON_UNKNOWN');
+                        break;
+                }
+
+                $this->template->assign_vars([
+                    'S_USER_INACTIVE'      => true,
+                    'USER_INACTIVE_REASON' => $inactive_reason,
+                ]);
+            }
+        }
     }
 
     /**
@@ -274,6 +346,24 @@ class main
         }
 
         return $output;
+    }
+
+    /**
+     * Updates the user data with the session time duration, if they wish to be tracked as online
+     */
+    private function submoduleSetUserOnlineTime()
+    {
+        if ($this->getConfig('load_onlinetrack')) {
+
+            if (!function_exists('phpbb_show_profile')) {
+                include_once('includes/functions_display.' . self::$phpEx);
+            }
+
+            $sessionRow = query::getUserSessionTime($this, $this->user->data['user_id']);
+
+            $this->user->data['session_time'] = (isset($sessionRow['session_time'])) ? $sessionRow['session_time'] : 0;
+            $this->user->data['session_viewonline'] = (isset($sessionRow['session_viewonline'])) ? $sessionRow['session_viewonline'] : 0;
+        }
     }
 
     /**

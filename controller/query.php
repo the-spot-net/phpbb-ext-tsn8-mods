@@ -32,6 +32,7 @@ class query
     const SQL_USER_BIRTHDAYS = 'SELECT u.user_id, u.username, u.user_colour, u.user_birthday FROM ' . USERS_TABLE . ' u LEFT JOIN ' . BANLIST_TABLE . ' b ON (u.user_id = b.ban_userid) WHERE (b.ban_id IS NULL OR b.ban_exclude = 1) AND (u.user_birthday LIKE "' . self::TOKEN_DATE . '%" ' . self::TOKEN_LEAP_DATE . ') AND u.user_type IN (' . USER_NORMAL . ', ' . USER_FOUNDER . ')';
     const SQL_USER_GROUPS_LEGEND_ALL = 'SELECT group_id, group_name, group_colour, group_type, group_legend FROM ' . GROUPS_TABLE . ' WHERE group_legend > 0 ORDER BY group_legend';
     const SQL_USER_GROUPS_LEGEND_RESTRICTED = 'SELECT g.group_id, g.group_name, g.group_colour, g.group_type, g.group_legend FROM ' . GROUPS_TABLE . ' g LEFT JOIN ' . USER_GROUP_TABLE . ' ug ON (g.group_id = ug.group_id AND ug.user_id = ' . self::TOKEN_USER_ID . ' AND ug.user_pending = 0) WHERE g.group_legend > 0 AND (g.group_type <> ' . GROUP_HIDDEN . ' OR ug.user_id = ' . self::TOKEN_USER_ID . ') ORDER BY g.group_legend';
+    const SQL_USER_SESSION_TIME = 'SELECT MAX(session_time) AS session_time, MIN(session_viewonline) AS session_viewonline FROM ' . SESSIONS_TABLE . ' WHERE session_user_id = ' . self::TOKEN_USER_ID;
 
     // SQL Query Injection phrases
     const SQL_INJECT_USER_LEAP_BIRTHDAYS = ' OR u.user_birthday LIKE "' . self::TOKEN_DATE . '%"';
@@ -50,6 +51,12 @@ class query
         return self::executeQuery($controller, $query);
     }
 
+    /**
+     * Release the DB Cursor
+     *
+     * @param \tsn\tsn\controller\main $controller
+     * @param                          $cursor
+     */
     public static function freeCursor(main $controller, $cursor)
     {
         $controller->getDb()->sql_freeresult($cursor);
@@ -142,6 +149,21 @@ class query
             : self::SQL_USER_GROUPS_LEGEND_ALL);
 
         return $controller->getDb()->sql_query($query);
+    }
+
+    /**
+     * Get some basic Session details for the user for updating online time
+     *
+     * @param \tsn\tsn\controller\main $controller
+     * @param int                      $userId
+     *
+     * @return mixed
+     */
+    public static function getUserSessionTime(main $controller, int $userId)
+    {
+        $query = str_replace(self::TOKEN_USER_ID, $userId, self::SQL_USER_SESSION_TIME);
+
+        return self::executeQuery($controller, $query);
     }
 
     /**
