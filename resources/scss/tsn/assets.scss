@@ -1,0 +1,21 @@
+.mdc-drawer {
+  .mdc-drawer__header {
+
+    .tsn-drawer-logo {
+      width: $triple-side;
+      height: $triple-side;
+      margin-top: #{$double-vertical} + #{$half-vertical};
+    }
+
+    .avatar {
+      width: $triple-side;
+      height: $triple-side;
+      margin: $full-vertical $full-side $full-vertical 0;
+    }
+  }
+
+  .tsn-navigation-image {
+    min-width: $double-side;
+    height: $double-vertical;
+  }
+}

@@ -1,0 +1,15 @@
+// Import the tsn variable assignments
+@import "config/vars";
+// Import the mdc variable assignments, then the overridden style property assignments
+@import "config/mdc-settings";
+@import "config/mdc-overrides";
+// Import the foundation sites stuff;
+@import "config/foundation-settings";
+
+// Then include the tsn extension scss files,
+// wrapped in an ID tag so they override anything from external templates
+#tsn {
+  @import "tsn/core";
+  @import "tsn/assets";
+}
+

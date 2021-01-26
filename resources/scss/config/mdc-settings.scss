@@ -1,0 +1,53 @@
+// Material Design color variables
+$mdc-theme-primary: #003366;
+$mdc-theme-secondary: #fbc02d;
+$mdc-theme-surface: #f5f5f5;
+$mdc-theme-background: #e1e1e1;
+
+$mdc-theme-on-primary: #ffffff;
+$mdc-theme-on-secondary: #000000;
+$mdc-theme-on-surface: #000000;
+
+// Set the font family global override variable
+$mdc-typography-font-family: unquote("Lato, Helvetica, sans-serif");
+
+// Import the Material Design component styles
+@import "~@material/animation/variables";
+@import "~@material/animation/functions";
+@import "~@material/button/mdc-button";
+@import "~@material/button/mixins";
+@import "~@material/card/mdc-card";
+@import "~@material/checkbox/mdc-checkbox";
+@import "~@material/chips/mdc-chips";
+@import "~@material/dialog/mdc-dialog";
+@import "~@material/drawer/mdc-drawer";
+@import "~@material/elevation/mdc-elevation";
+@import "~@material/fab/mdc-fab";
+@import "~@material/floating-label/mdc-floating-label";
+@import "~@material/form-field/mdc-form-field";
+@import "~@material/icon-button/mdc-icon-button";
+@import "~@material/layout-grid/mdc-layout-grid";
+@import "~@material/line-ripple/mdc-line-ripple";
+@import "~@material/list/mdc-list";
+@import "~@material/menu-surface/mdc-menu-surface";
+@import "~@material/menu/mdc-menu";
+@import "~@material/notched-outline/mdc-notched-outline";
+@import "~@material/radio/mdc-radio";
+@import "~@material/select/mdc-select";
+@import "~@material/select/helper-text/mdc-select-helper-text";
+@import "~@material/select/icon/mdc-select-icon";
+@import "~@material/shape/mixins";
+@import "~@material/shape/functions";
+@import "~@material/snackbar/mdc-snackbar";
+@import "~@material/switch/mdc-switch";
+@import "~@material/tab-bar/mdc-tab-bar";
+@import "~@material/tab-scroller/mdc-tab-scroller";
+@import "~@material/tab-indicator/mdc-tab-indicator";
+@import "~@material/tab/mdc-tab";
+@import "~@material/textfield/mdc-text-field";
+@import "~@material/textfield/character-counter/mdc-text-field-character-counter";
+@import "~@material/textfield/helper-text/mdc-text-field-helper-text";
+@import "~@material/textfield/icon/mdc-text-field-icon";
+@import "~@material/top-app-bar/mdc-top-app-bar";
+@import "~@material/touch-target/mdc-touch-target";
+@import "~@material/typography/mdc-typography";

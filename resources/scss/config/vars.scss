@@ -1,0 +1,90 @@
+// Default Base Values for various things
+$base-text-size: 16px;
+$default-border-width: 1px;
+
+// Variable Calculations for Vertical Spacing (padding, margins)
+$triple-vertical: #{$base-text-size} * 3;
+$double-vertical: #{$base-text-size} * 2;
+$full-vertical: $base-text-size;
+$half-vertical: #{$base-text-size} * 0.5;
+$quarter-vertical: #{$base-text-size} * 0.25;
+
+// Variable Calculations for Vertical Spacing with Border subtracted (padding, margins)
+$triple-vertical-bordered: #{$triple-vertical} - #{$default-border-width};
+$double-vertical-bordered: #{$double-vertical} - #{$default-border-width};
+$full-vertical-bordered: #{$full-vertical} - #{$default-border-width};
+$half-vertical-bordered: #{$half-vertical} - #{$default-border-width};
+$quarter-vertical-bordered: #{$quarter-vertical} - #{$default-border-width};
+
+// Variable Calculations for side Spacing (padding, margins)
+$triple-side: #{$base-text-size} * 3;
+$double-side: #{$base-text-size} * 2;
+$full-side: $base-text-size;
+$half-side: #{$base-text-size} * 0.5;
+$quarter-side: #{$base-text-size} * 0.25;
+
+// Variable Calculations for side Spacing with Border subtracted (padding, margins)
+$triple-side-bordered: #{$triple-side} - #{$default-border-width};
+$double-side-bordered: #{$double-side} - #{$default-border-width};
+$full-side-bordered: #{$full-side} - #{$default-border-width};
+$half-side-bordered: #{$half-side} - #{$default-border-width};
+$quarter-side-bordered: #{$quarter-side} - #{$default-border-width};
+
+// Blacks
+$black: #000;
+$light-black: lighten($black, 15%);
+$lighter-black: lighten($black, 25%);
+
+// Greys
+$grey: #a9a6a7;
+$dark-grey: darken($grey, 15%);
+$light-grey: lighten($grey, 15%);
+$lighter-grey: lighten($grey, 25%);
+
+// Blues
+$blue: #1f75ae;
+$dark-blue: darken($blue, 15%);
+$light-blue: lighten($blue, 15%);
+$very-dark-blue: #001a49;
+
+// Greens
+$green: #72bc44;
+$dark-green: darken($green, 15%);
+$light-green: lighten($green, 15%);
+
+// Yellows
+$yellow: #fcb040;
+$dark-yellow: darken($yellow, 15%);
+$light-yellow: lighten($yellow, 15%);
+
+// Oranges
+$orange: #f79433;
+$dark-orange: darken($orange, 15%);
+$light-orange: lighten($orange, 15%);
+
+// Reds
+$red: #e63c4d;
+$crimson: #af2f4e;
+$pantone: #ed2726;
+$pantone-hover: #db2322;
+$dark-red: darken($red, 15%);
+$light-red: lighten($red, 15%);
+
+// Pinks
+$pink: #f37b83;
+$dark-pink: darken($pink, 15%);
+$light-pink: lighten($pink, 15%);
+
+// Purples
+$purple: #a05ea5;
+$dark-purple: darken($purple, 15%);
+$light-purple: lighten($purple, 15%);
+$very-light-purple: lighten($purple, 23%);
+
+// Whites
+$white: #fff;
+$dark-white: darken($white, 15%);
+
+// Brands
+$facebook-blue: #3b5998;
+$twitter-blue: #00a0d1;

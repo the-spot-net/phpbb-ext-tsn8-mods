@@ -1,3 +1,46 @@
-#tsn_tsn8_controller:
-#    path: /tsn/{name}
-#    defaults: { _controller: tsn.tsn8.controller:handle }
+tsn_tsn_index:
+    pattern: /tsn
+    defaults: { _controller: tsn.tsn.controller:index }
+
+tsn_tsn_ajax:
+    pattern: /tsn/ajax/{route}
+    defaults: { _controller: tsn.tsn.controller:ajax, route: "index" }
+
+tsn_tsn_forum:
+    pattern: /tsn/forum/{id}
+    defaults: { _controller: tsn.tsn.controller:viewForum }
+    requirements:
+        id: \d+
+
+tsn_tsn_topic:
+    pattern: /tsn/topic/{id}
+    defaults: { _controller: tsn.tsn.controller:viewTopic }
+    requirements:
+        id: \d+
+
+tsn_tsn_user:
+    pattern: /tsn/user/{id}
+    defaults: { _controller: tsn.tsn.controller:viewProfile }
+    requirements:
+        id: \d+
+
+tsn_tsn_member:
+    pattern: /tsn/member/{id}
+    defaults: { _controller: tsn.tsn.controller:viewMember }
+    requirements:
+        id: \d+
+#acme_blog_home:
+#    path: /blog
+#    defaults: { _controller: acme.blog.controller:handle }
+#
+#acme_blog_entry:
+#    path: /blog/{id}
+#    defaults: { _controller: acme.blog.controller:handle }
+#    requirements:
+#        id: \d+
+#
+#acme_blog_edit:
+#    path: /blog/{id}/edit
+#    defaults: { _controller: acme.blog.controller:handle }
+#    requirements:
+#        id: \d+

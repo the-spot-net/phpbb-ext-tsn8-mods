@@ -2,46 +2,65 @@
 
 <h1>{L_SETTINGS}</h1>
 
-<form id="acp_board" method="post" action="{U_ACTION}">
-	<h2>{L_MYSPOT} :: {L_MODULE_SETTINGS}</h2>
-	<fieldset>
-		<dl>
-			<dt><label>{L_ENABLE_MYSPOT_MINI_PROFILE}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_mini_profile" value="1" <!-- IF TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_mini_profile" value="0" <!-- IF not TSN8_ACTIVATE_MINI_PROFILE -->checked="checked"<!-- ENDIF --> /> {L_NO}
-			</dd>
-		</dl>
-		<dl>
-			<dt><label>{L_ENABLE_MYSPOT_LOGIN}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_myspot_login" value="1" <!-- IF TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_myspot_login" value="0" <!-- IF not TSN8_ACTIVATE_MYSPOT_LOGIN -->checked="checked"<!-- ENDIF --> /> {L_NO}
-			</dd>
-		</dl>
-		<dl>
-			<dt><label>{L_ENABLE_MYSPOT_MINI_FORUMS}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_mini_forums" value="1" <!-- IF TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_mini_forums" value="0" <!-- IF not TSN8_ACTIVATE_MINI_FORUMS -->checked="checked"<!-- ENDIF --> /> {L_NO}
-			</dd>
-		</dl>
-		<dl>
-			<dt><label>{L_ENABLE_MYSPOT_SPECIAL_REPORT}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_special_report" value="1" <!-- IF TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_special_report" value="0" <!-- IF not TSN8_ACTIVATE_SPECIAL_REPORT -->checked="checked"<!-- ENDIF --> /> {L_NO}
-			</dd>
-		</dl>
-		<dl>
-			<dt><label>{L_ENABLE_MYSPOT_NEW_POSTS}</label></dt>
-			<dd><input type="radio" class="radio" name="tsn8_activate_newposts" value="1" <!-- IF TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-				<input type="radio" class="radio" name="tsn8_activate_newposts" value="0" <!-- IF not TSN8_ACTIVATE_NEW_POSTS -->checked="checked"<!-- ENDIF --> /> {L_NO}
-			</dd>
-		</dl>
+<form action="{U_ACTION}" id="acp_board" method="post">
+    <h2>{L_MYSPOT} :: {L_MODULE_SETTINGS}</h2>
+    <fieldset>
+        <dl>
+            <dt><label>{L_ENABLE_TSN_EXTENSION}</label></dt>
+            <dd><input class="radio" name="tsn_enable_extension" type="radio" value="1" <!-- IF TSN_ENABLE_EXTENSION -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_extension" type="radio" value="0" <!-- IF not TSN_ENABLE_EXTENSION -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_ENABLE_MYSPOT_LOGIN}</label></dt>
+            <dd><input class="radio" name="tsn_enable_myspot" type="radio" value="1" <!-- IF TSN_ENABLE_MYSPOT -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_myspot" type="radio" value="0" <!-- IF not TSN_ENABLE_MYSPOT -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_ENABLE_MYSPOT_MINI_PROFILE}</label></dt>
+            <dd><input class="radio" name="tsn_enable_miniprofile" type="radio" value="1" <!-- IF TSN_ENABLE_MINIPROFILE -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_miniprofile" type="radio" value="0" <!-- IF not TSN_ENABLE_MINIPROFILE -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_ENABLE_MYSPOT_MINI_FORUMS}</label></dt>
+            <dd><input class="radio" name="tsn_enable_miniforums" type="radio" value="1" <!-- IF TSN_ENABLE_MINIFORUMS -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_miniforums" type="radio" value="0" <!-- IF not TSN_ENABLE_MINIFORUMS -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_ENABLE_MYSPOT_NEW_POSTS}</label></dt>
+            <dd><input class="radio" name="tsn_enable_newposts" type="radio" value="1" <!-- IF TSN_ENABLE_NEWPOSTS -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_newposts" type="radio" value="0" <!-- IF not TSN_ENABLE_NEWPOSTS -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <hr/>
+        <dl>
+            <dt><label>{L_ENABLE_MYSPOT_SPECIAL_REPORT}</label></dt>
+            <dd><input class="radio" name="tsn_enable_specialreport" type="radio" value="1" <!-- IF TSN_ENABLE_SPECIALREPORT -->checked="checked"<!-- ENDIF --> /> {L_YES} &nbsp;
+                <input class="radio" name="tsn_enable_specialreport" type="radio" value="0" <!-- IF not TSN_ENABLE_SPECIALREPORT -->checked="checked"<!-- ENDIF --> /> {L_NO}
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_MYSPOT_SPECIAL_REPORT_FORUM_ID}</label></dt>
+            <dd>
+                <input class="text" name="tsn_specialreport_forumid" type="number" value="{V_TSN_SPECIALREPORT_FORUMID}">
+            </dd>
+        </dl>
+        <dl>
+            <dt><label>{L_MYSPOT_SPECIAL_REPORT_EXCERPT_WORDS}</label></dt>
+            <dd>
+                <input class="text" name="tsn_specialreport_excerpt_words" type="number" value="{V_TSN_SPECIALREPORT_WORDCOUNT}">
+            </dd>
+        </dl>
 
-		<p class="submit-buttons">
-			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}"/>&nbsp;
-			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}"/>
-		</p>
+        <p class="submit-buttons">
+            <input class="button1" id="submit" name="submit" type="submit" value="{L_SUBMIT}"/>&nbsp;
+            <input class="button2" id="reset" name="reset" type="reset" value="{L_RESET}"/>
+        </p>
 
-		{S_FORM_TOKEN}
-	</fieldset>
+        {S_FORM_TOKEN}
+    </fieldset>
 </form>
 <!-- INCLUDE overall_footer.html -->

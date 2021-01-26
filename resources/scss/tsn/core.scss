@@ -1,0 +1,13 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: $mdc-theme-surface none;
+  display: flex;
+  height: 100vh;
+
+  header, footer, section, nav {
+    max-width: 100vw;
+    width: 100%;
+    margin: 0;
+  }
+}

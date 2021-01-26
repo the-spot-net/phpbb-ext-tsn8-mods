@@ -1,0 +1,38 @@
+// Styles for the Top App Bar
+.mdc-top-app-bar {
+  z-index: 7;
+}
+
+// Styles for the left drawer
+.mdc-drawer {
+  @include mdc-drawer-divider-color($mdc-theme-primary);
+  @include mdc-drawer-surface-fill-color($white);
+
+  //.mdc-drawer__title {
+  //  margin-bottom: 0;
+  //}
+}
+
+/*
+ * Styles for the Content of the page
+ */
+.main-content {
+  overflow: auto;
+  height: 100%;
+}
+
+.mdc-card,
+.mdc-card--outlined {
+  @include mdc-card-fill-color($white);
+  padding: $full-vertical $full-side;
+
+  &--dense {
+    padding: $quarter-vertical $quarter-side;
+  }
+}
+
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
+}

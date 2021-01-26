@@ -1,0 +1,5 @@
+# Exclude these directories
+node_modules/**/*
+dist/**/*
+tmpdist/**/*
+js/vendor/**/*.js
